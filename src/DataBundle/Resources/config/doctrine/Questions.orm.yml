@@ -1,0 +1,74 @@
+DataBundle\Entity\Questions: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        answers: 
+            targetEntity:  Answers
+            mappedBy:  questions
+        questionsdatas: 
+            targetEntity:  QuestionsDatas
+            mappedBy:  questions
+        testsquestions: 
+            targetEntity:  TestsQuestions
+            mappedBy:  questions
+        children: 
+            targetEntity:  Questions
+            mappedBy:  parent
+        rightanswersmutiple: 
+            targetEntity:  RightAnswersMutiple
+            mappedBy:  questions
+        rightanswerstruefalse: 
+            targetEntity:  RightAnswersTrueFalse
+            mappedBy:  questions
+    manyToOne: 
+        users: 
+            targetEntity:  Users
+            inversedBy:  questions
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+        subjects: 
+            targetEntity:  Subjects
+            inversedBy:  questions
+            joinColumn: 
+                name: subjects_id
+                referencedColumnName: id
+        subjectschapters: 
+            targetEntity:  SubjectsChapters
+            inversedBy:  questions
+            joinColumn: 
+                name: subjectschapters_id
+                referencedColumnName: id
+        questionstypes: 
+            targetEntity:  QuestionsTypes
+            inversedBy:  questions
+            joinColumn: 
+                name: questionstypesid
+                referencedColumnName: id
+        parent: 
+            targetEntity:  Questions
+            inversedBy:  children
+            joinColumn: 
+              name:  parent_id
+              referencedColumnName:  id
+            nullable:  true
+    table:  questions
+    fields: 
+        content: 
+            type:  text
+        time: 
+            type:  integer
+        update_time: 
+            type:  integer
+            nullable:  true
+        share: 
+            type:  integer
+        tutorial: 
+            type:  text
+            nullable:  true
+
+        

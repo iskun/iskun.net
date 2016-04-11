@@ -1,0 +1,38 @@
+DataBundle\Entity\TestsUsers: 
+  type:  entity
+  manyToOne: 
+    tests: 
+      targetEntity:  Tests
+      inversedBy:  testsusers
+      joinColumn: 
+        name: tests_id
+        referencedColumnName: id
+    users: 
+      targetEntity:  Users
+      inversedBy:  testsusers
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  testsusers
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256
+      nullable:  true
+   start_time: 
+      type:  integer
+      nullable:  true
+   end_time: 
+      type:  integer
+      nullable:  true
+   mark: 
+      type:  integer
+      nullable:  true
+   ip: 
+      type:  string
+      nullable:  true

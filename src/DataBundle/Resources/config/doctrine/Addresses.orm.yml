@@ -1,0 +1,46 @@
+DataBundle\Entity\Addresses: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        users: 
+            targetEntity:  Users
+            inversedBy:  addresses
+            joinColumn: 
+                name:  users_id
+                referencedColumnName:  id
+        locations: 
+            targetEntity:  Locations
+            inversedBy:  addresses
+            joinColumn: 
+                name:  locations_id
+                referencedColumnName:  id
+    table:  addresses 
+    fields: 
+        name: 
+            type:  string
+            length: 256
+        address:
+            type: string
+            length: 256
+        tel:
+            type: string
+            length: 25
+        latitude:
+            type: string
+            length: 25
+            nullable: true
+        longitude:
+            type: string
+            length: 25
+            nullable: true
+        type:
+            type: string
+            length: 25
+        confirm:
+            type: integer
+            
+        

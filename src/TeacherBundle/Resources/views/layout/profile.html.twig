@@ -1,0 +1,17 @@
+<div class="ibox float-e-margins" ng-controller="profileController" ng-show="user.id>0" ng-cloak>
+    <div class="col-md-12 ibox-content" style="padding: 10px !important;" >
+        <div class="profile-image" style="width: 100px !important;">
+            <img class="img-circle circle-border" ng-src="/avatars/[[user.avatar]]"> 
+        </div>
+        <div class="profile-info" style="margin-left: 100px; padding-top: 10px;">
+            <div class="">
+                <div> 
+                    <h2 ng-bind="user.fullname" class="no-margins">
+                       {{user.fullname}}
+                    </h2>
+                    <h4>Học viện Nông Nghiệp Việt Nam</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

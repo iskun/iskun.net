@@ -1,0 +1,97 @@
+DataBundle\Entity\Users: 
+  type:  entity
+  table:  users 
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  uniqueConstraints: 
+    email_index: 
+      columns: 
+        email
+  oneToMany: 
+        addresses: 
+          targetEntity:  Addresses
+          mappedBy:  users
+        parcels:  
+          targetEntity:  Parcels
+          mappedBy:  users
+        banksaccounts:  
+          targetEntity:  BanksAccounts
+          mappedBy:  users
+  fields: 
+   password: 
+      type:  string
+      length:  60
+   token: 
+      type:  string
+      length:  60
+   name: 
+      type:  string
+      length:  255
+      nullable:  true
+   gender: 
+      type:  string
+      length:  15
+      nullable:  true
+   is_active: 
+      type:  boolean
+      nullable:  true
+   email: 
+      type:  string
+      length:  255
+      nullable:  true
+      options: 
+        default:  ""
+   time: 
+      type:  string
+   type: 
+      type:  string
+      length:  25
+      nullable:  true
+   tel: 
+      type:  string
+      length:  15
+      nullable:  true
+      options: 
+        default:  ""
+   tel_status: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   email_status: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   active: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   avatar: 
+      type:  string
+      nullable:  true
+      options: 
+        default:  ''
+   birthday:
+       type: date
+       nullable: true
+   latitude: 
+      type:  string
+      length:  15
+      nullable:  true
+   longitude: 
+      type:  string
+      length:  15
+      nullable:  true
+   address: 
+      type:  string
+      length:  256
+      nullable:  true
+   is_owner: 
+      type:  integer
+      nullable: true
+    

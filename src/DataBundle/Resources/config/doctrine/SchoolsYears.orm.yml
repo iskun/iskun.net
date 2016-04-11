@@ -1,0 +1,28 @@
+DataBundle\Entity\SchoolsYears: 
+  type:  entity
+  table:  schoolsyears
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    schools: 
+      targetEntity:  Schools
+      inversedBy:  schoolsyears
+      joinColumn: 
+        name: schools_id
+        referencedColumnName: id
+  oneToMany: 
+    classes: 
+      targetEntity:  Classes
+      mappedBy:  schoolsyears
+  fields: 
+   number: 
+      type:  integer
+   name: 
+      type:  string
+   start: 
+      type:  integer
+   end: 
+      type:  integer

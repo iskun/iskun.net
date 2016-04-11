@@ -1,0 +1,16 @@
+DataBundle\Entity\Configurations: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    table:  configurations 
+    fields: 
+        converter_ip: 
+            type:  string
+            length: 256
+        current_folder: 
+            type:  string
+            length: 256
+       

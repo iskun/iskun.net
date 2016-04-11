@@ -1,0 +1,17 @@
+DataBundle\Entity\Sliders: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    table:  sliders 
+    fields: 
+        photo: 
+            type:  string
+            length: 256
+        title: 
+            type:  string
+            length: 256
+        content:
+            type: text

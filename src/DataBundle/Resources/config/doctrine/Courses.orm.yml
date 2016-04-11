@@ -1,0 +1,49 @@
+DataBundle\Entity\Courses: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        classes: 
+            targetEntity:  Classes
+            inversedBy:  courses
+            joinColumn: 
+                name: id
+                referencedColumnName: id
+        subjects: 
+            targetEntity:  Subjects
+            inversedBy:  courses
+            joinColumn: 
+                name: subjects_id
+                referencedColumnName: id
+        users: 
+            targetEntity:  Users
+            inversedBy:  courses
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+    oneToMany: 
+        coursesstudents: 
+            targetEntity:  CoursesStudents
+            mappedBy:  coursesstudents
+        postsclasses: 
+            targetEntity:  PostsClasses
+            mappedBy:  courses
+        postscourses: 
+            targetEntity:  PostsCourses
+            mappedBy:  courses
+    table:  courses
+    fields: 
+       create_time: 
+            type:  integer
+       url: 
+            type:  string
+            nullable:  true
+       teacher_status: 
+            type:  string
+            nullable:  true
+    
+
+

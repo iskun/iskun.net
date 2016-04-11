@@ -1,0 +1,22 @@
+DataBundle\Entity\CommentsFiles: 
+  type:  entity
+  manyToOne:  
+    files: 
+      targetEntity:  Files
+      inversedBy:  commentsfiles
+      joinColumn: 
+          name:  files_id
+          referencedColumnName:  id
+    comments: 
+      targetEntity:  Comments
+      inversedBy:  commentsfiles
+      joinColumn: 
+        name: comments_id
+        referencedColumnName: id
+  table:  commentsfiles
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 

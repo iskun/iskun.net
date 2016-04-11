@@ -1,0 +1,21 @@
+DataBundle\Entity\LocationsTypes: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    locations: 
+      targetEntity:  Locations
+      mappedBy:  locationstypes
+  table:  locationstypes
+  fields: 
+   name: 
+      type:  string
+      length:  100
+      nullable:  true
+   increase:
+      type:  integer
+      
+   

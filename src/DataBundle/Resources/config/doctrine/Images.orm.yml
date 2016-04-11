@@ -1,0 +1,51 @@
+DataBundle\Entity\Images: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  images
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  oneToMany: 
+    postsimages: 
+      targetEntity:  PostsImages
+      mappedBy:  images
+    likes:  
+      targetEntity:  Likes
+      mappedBy:  images
+  table:  images
+  fields: 
+   root_name: 
+      type:  string
+      length:  100
+      nullable:  true
+   name: 
+      type:  string
+      length:  100
+      nullable:  true
+   description: 
+      type:  string
+      length:  256
+      nullable:  true
+   path: 
+      type:  string
+      length:  100
+   width: 
+      type:  integer
+      nullable:  true
+   height: 
+      type:  integer
+      nullable:  true
+   orientation: 
+      type:  string
+      nullable:  true
+   time: 
+      type:  integer
+      nullable:  true
+          

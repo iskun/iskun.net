@@ -1,0 +1,23 @@
+DataBundle\Entity\Phrases: 
+  type:  entity
+  table:  phrases
+  oneToMany: 
+    phrasescontents: 
+      targetEntity:  Phrasescontents
+      mappedBy:  phrases
+  id: 
+    ph_id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO  
+  fields: 
+    ph_name: 
+      type:  string
+    ph_type: 
+      type:  string
+  
+
+  
+
+
+  

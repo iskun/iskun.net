@@ -1,0 +1,26 @@
+DataBundle\Entity\TestsQuestions: 
+    type:  entity
+    manyToOne: 
+        questions: 
+            targetEntity:  Questions
+            inversedBy:  testsquestions
+            joinColumn: 
+              name:  questions_id
+              referencedColumnName:  id
+        tests: 
+            targetEntity:  Tests
+            inversedBy:  testsquestions
+            joinColumn: 
+              name: tests_id
+              referencedColumnName: id
+    table:  testsquestions
+    id: 
+        tid: 
+            type:  integer
+            generator: 
+              strategy:  AUTO
+    fields: 
+        tratio: 
+            type:  integer
+        torder: 
+            type:  integer

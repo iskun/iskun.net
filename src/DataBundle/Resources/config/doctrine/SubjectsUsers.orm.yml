@@ -1,0 +1,26 @@
+DataBundle\Entity\SubjectsUsers: 
+  type:  entity
+  manyToOne: 
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  subjectsusers
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+  table:  subjectsusers
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256
+      nullable:  true
+   create_time: 
+      type:  integer
+      nullable:  true
+   role:  
+      type:  string
+      nullable:  true

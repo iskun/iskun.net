@@ -1,0 +1,22 @@
+DataBundle\Entity\Stages: 
+  type:  entity
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    stagessubjects: 
+      targetEntity:  StagesSubjects
+      mappedBy:  stages
+    grades: 
+      targetEntity:  Grades
+      mappedBy:  stages
+  table:  stages
+  fields: 
+    name: 
+      type:  string 
+      length:  100
+    description: 
+      type:  text
+      nullable: true

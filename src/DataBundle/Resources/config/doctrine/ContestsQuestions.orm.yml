@@ -1,0 +1,56 @@
+DataBundle\Entity\ContestsQuestions: 
+    type:  entity
+    id:  
+        cid: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        contestsanswers: 
+            targetEntity:  ContestsAnswers
+            mappedBy:  contestsquestions
+        contestsquestionsdatas: 
+            targetEntity:  ContestsQuestionsDatas
+            mappedBy:  contestsquestions
+    manyToOne: 
+        users: 
+            targetEntity:  Users
+            inversedBy:  questions
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+        subjects: 
+            targetEntity:  Subjects
+            inversedBy:  questions
+            joinColumn: 
+                name: subjects_id
+                referencedColumnName: id
+        subjectschapters: 
+            targetEntity:  SubjectsChapters
+            inversedBy:  questions
+            joinColumn: 
+                name: subjectschapters_id
+                referencedColumnName: id
+        questionstypes: 
+            targetEntity:  QuestionsTypes
+            inversedBy:  questions
+            joinColumn: 
+                name: questionstypes_id
+                referencedColumnName: id
+        contests: 
+            targetEntity:  Contests
+            inversedBy:  contestsquestions
+            joinColumn: 
+                name: contests_id
+                referencedColumnName: id
+        questions: 
+            targetEntity:  Questions
+            inversedBy:  contestsquestions
+            joinColumn: 
+                name:  questions_id
+                referencedColumnName:  id
+    table:  contestsquestions
+    fields: 
+        content: 
+            type:  text
+        

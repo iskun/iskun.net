@@ -1,0 +1,83 @@
+DataBundle\Entity\Files: 
+  type:  entity
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  files
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    filesformats: 
+      targetEntity:  FilesFormats
+      inversedBy:  files
+      joinColumn: 
+        name: filesformats_id
+        referencedColumnName: id
+    filescategories: 
+      targetEntity:  FilesCategories
+      inversedBy:  files
+      joinColumn: 
+        name: filescategories_id
+        referencedColumnName: id
+    subjects: 
+      targetEntity:  Subjects
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+    subjectschapters: 
+      targetEntity:  SubjectsChapters
+      joinColumn: 
+        name: subjectschapters_id
+        referencedColumnName: id
+  oneToMany: 
+    comments: 
+      targetEntity:  Comments
+      mappedBy:  files
+    previews: 
+      targetEntity:  Previews
+      mappedBy:  files
+      cascade:
+            ['remove']
+  table:  files
+  fields: 
+    filename: 
+      type:  string
+      length:  100
+    description: 
+      type:  string
+      length:  256
+      nullable:  true
+    filepath: 
+      type:  string
+      length:  100
+    size: 
+      type:  integer
+      nullable: true
+    format: 
+      type:  string
+      length:  100
+    thumbnail: 
+      type:  string
+      nullable:  true
+    time:
+      type: integer
+      nullable: true
+    commentsnumbers:
+        type: integer
+        nullable: true
+    likesnumbers:
+        type: integer
+        nullable: true
+    pages:
+        type: integer
+        nullable: true
+    extension:
+        type: string
+    is_previewed:
+        type: integer
+        nullable: true

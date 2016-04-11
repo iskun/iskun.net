@@ -1,0 +1,29 @@
+DataBundle\Entity\Icons: 
+  type:  entity
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    iconscategories: 
+      targetEntity:  IconsCategories
+      inversedBy:  icons
+      joinColumn: 
+        name: iconscategories_id
+        referencedColumnName: id
+    iconsstatus: 
+      targetEntity:  IconsStatus
+      inversedBy:  icons
+      joinColumn: 
+        name: iconsstatus_id
+        referencedColumnName: id
+  oneToMany: 
+    comments: 
+      targetEntity:  Comments
+      mappedBy:  icons
+  table:  icons
+  fields: 
+    filepath: 
+      type:  string
+      length:  300

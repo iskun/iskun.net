@@ -1,0 +1,89 @@
+DataBundle\Entity\Parcels: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        send: 
+            targetEntity:  Addresses
+            inversedBy:  parcels
+            joinColumn: 
+                name:  send_addresses_id
+                referencedColumnName:  id
+        to: 
+            targetEntity:  Addresses
+            inversedBy:  parcels
+            joinColumn: 
+                name:  to_addresses_id
+                referencedColumnName:  id
+        orders: 
+            targetEntity:  Orders
+            inversedBy:  parcels
+            joinColumn:  
+                name:  orders_id
+                referencedColumnName:  id
+        users:  
+            targetEntity:  Users
+            inversedBy:  parcels
+            joinColumn: 
+                name:  users_id
+                referencedColumnName:  id
+        shippers:  
+            targetEntity:  Users
+            inversedBy:  parcels
+            joinColumn: 
+                name:  shipper_id
+                referencedColumnName:  id
+        services:  
+            targetEntity:  Services
+            inversedBy:  parcels
+            joinColumn: 
+                name:  services_id
+                referencedColumnName:  id
+        banksaccounts:  
+            targetEntity:  BanksAccounts
+            inversedBy:  parcels
+            joinColumn: 
+                name:  banksaccounts_id
+                referencedColumnName:  id
+    table:  parcels 
+    fields: 
+        name: 
+            type:  string
+            length: 256
+        weight:
+            type: string
+            length: 256
+        width:
+            type: string
+            length: 25
+        height:
+            type: string
+            length: 25
+            nullable: true
+        depth:
+            type: string
+            length: 25
+            nullable: true
+        note:
+            type: string
+            length: 256
+            nullable: true
+        price:
+            type: integer
+            nullable: true
+        status:
+            type: string
+        collect:
+            type: integer
+            nullable: true
+        collect_amount:
+            type: integer
+            nullable: true
+        delivery_time:
+            type: string
+            nullable: true
+            
+        

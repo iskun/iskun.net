@@ -1,0 +1,20 @@
+DataBundle\Entity\Introductions: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    table:  introductions 
+    fields: 
+        about: 
+            type:  text
+        price: 
+            type:  text
+        locations: 
+            type:  text
+        process: 
+            type:  text
+        service: 
+            type:  text
+        

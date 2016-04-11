@@ -1,0 +1,20 @@
+DataBundle\Entity\TestsTypesDatas: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    teststypes: 
+      targetEntity:  TestsTypes
+      inversedBy:  teststypesdatas
+      joinColumn: 
+        name: teststypes_id
+        referencedColumnName: id
+  table:  teststypesdatas
+  fields: 
+   index: 
+      type:  string
+   value: 
+      type:  text

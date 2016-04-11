@@ -1,0 +1,25 @@
+DataBundle\Entity\District: 
+    type:  entity
+    id: 
+        districtid: 
+            type:  integer
+    oneToMany: 
+        ward: 
+            targetEntity:  Ward
+            mappedBy:  district
+    manyToOne: 
+        province: 
+            targetEntity:  Province
+            inversedBy:  district
+            joinColumn: 
+                name:  provinceid
+                referencedColumnName:  provinceid
+    table:  district
+    fields: 
+        name: 
+            type:  text
+        type: 
+            type:  text
+        location: 
+            type:  text
+        

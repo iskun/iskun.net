@@ -1,0 +1,23 @@
+DataBundle\Entity\Location: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    children: 
+      targetEntity:  Location
+      mappedBy:  parent
+  manyToOne: 
+    parent: 
+      targetEntity:  Location
+      inversedBy:  children
+      joinColumn: 
+        name:  parent_id
+        referencedColumnName: id
+  table:  location
+  fields: 
+   name: 
+      type:  string
+      length:  100

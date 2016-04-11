@@ -1,0 +1,27 @@
+DataBundle\Entity\IconsCategories: 
+  type:  entity
+  oneToMany: 
+    icons: 
+      targetEntity:  Icons
+      mappedBy:  iconscategories
+    children: 
+      targetEntity:  IconsCategories
+      mappedBy:  parent
+  manyToOne: 
+    parent:  
+      targetEntity:  IconsCategories
+      inversedBy:  children
+      joinColumn: 
+        name: parent
+        referencedColumnName: id
+  table:  iconscategories
+  id: 
+   id:  
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   name: 
+      type:  string
+      length:  150

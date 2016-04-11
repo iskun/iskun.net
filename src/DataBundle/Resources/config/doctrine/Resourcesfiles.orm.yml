@@ -1,0 +1,56 @@
+DataBundle\Entity\Resourcesfiles: 
+  type:  entity
+  manyToOne: 
+    resources: 
+      targetEntity:  Resources
+      inversedBy:  resourcesfiles
+      joinColumn: 
+        name: resources_id
+        referencedColumnName: id
+  table:  resourcesfiles
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   filename: 
+      type:  string
+      length:  150
+   description: 
+      type:  text
+      nullable:  true
+   type: 
+      type:  string
+      length:  150
+   folder: 
+      type:  string
+      length:  50
+   format: 
+      type:  string
+      lenght:  10
+   hash: 
+      type:  string
+      length:  150
+   page: 
+      type:  integer
+      nullable:  true
+   thumb: 
+      type:  string
+      length:  150
+      nullable:  true
+   thumbpage: 
+      type:  integer
+      nullable:  true
+   thumbtry: 
+      type:  integer
+      nullable:  true
+   size: 
+      type:  integer
+      nullable:  true
+   url: 
+      type:  string
+      nullable:  true
+      
+ 

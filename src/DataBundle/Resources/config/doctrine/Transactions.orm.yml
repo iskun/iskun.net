@@ -1,0 +1,37 @@
+DataBundle\Entity\Transactions: 
+  type:  entity
+  manyToOne: 
+    from: 
+      targetEntity:  Users
+      inversedBy:  to
+      joinColumn: 
+        name: from_id
+        referencedColumnName: id
+    to: 
+      targetEntity:  Users
+      inversedBy:  from
+      joinColumn: 
+        name: to_id
+        referencedColumnName: id
+    transactionstypes: 
+      targetEntity:  TransactionsTypes
+      inversedBy:  transactions
+      joinColumn: 
+        name: transactionstypes_id
+        referencedColumnName: id
+  oneToMany: 
+    transactionsdatas: 
+      targetEntity:  TransactionsDatas
+      mappedBy:  transactions
+  table:  transactions
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   amount: 
+      type:  integer
+   time: 
+        type:  integer

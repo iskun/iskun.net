@@ -1,0 +1,46 @@
+DataBundle\Entity\Faculties: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    facultiesteachers: 
+      targetEntity:  FacultiesTeachers
+      mappedBy:  faculties
+    facultiesviceadministrators: 
+      targetEntity:  FacultiesViceAdministrators
+      mappedBy:  faculties
+    facultiesdepartments: 
+      targetEntity:  Departments
+      mappedBy:  faculties
+    facultiesclasses:  
+      targetEntity:  FacultiesClasses
+      mappedBy:  faculties
+  manyToOne:
+    schools: 
+      targetEntity:  Schools
+      inversedBy:  schoolsfaculties
+      joinColumn: 
+        name: schools_id
+        referencedColumnName: id
+    facultiesadministrator: 
+      targetEntity:  Users
+      inversedBy:  facultiesadministrator
+      joinColumn: 
+        name: administrator_user_id
+        referencedColumnName: id
+  table:  faculties
+  fields: 
+   name: 
+      type:  string
+      length:  256
+   office:
+      type: string
+      length: 256
+      nullable: true
+   tel:
+      type: string
+      length: 256
+      nullable: true

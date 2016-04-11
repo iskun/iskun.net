@@ -1,0 +1,26 @@
+DataBundle\Entity\ClassesStudents: 
+  type:  entity
+  manyToOne: 
+    classesstudents: 
+      targetEntity:  Classes
+      inversedBy:  classesstudents
+      joinColumn: 
+        name: classes_id
+        referencedColumnName: id
+    classesstudents: 
+      targetEntity:  Users
+      inversedBy:  classesstudents
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  classestudents
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status:  
+      type:  string
+   role: 
+      type:  string

@@ -1,0 +1,22 @@
+DataBundle\Entity\FacultiesClasses: 
+  type:  entity
+  manyToOne:  
+    faculties: 
+      targetEntity:  Faculties
+      inversedBy:  facultiesclasses
+      joinColumn: 
+          name:  falculties_id
+          referencedColumnName:  id
+    classes: 
+      targetEntity:  Classes
+      inversedBy:  facultiesclasses
+      joinColumn: 
+        name: classes_id
+        referencedColumnName: id
+  table:  facultiesclasses
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 

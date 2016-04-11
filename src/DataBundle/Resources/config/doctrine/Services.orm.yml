@@ -1,0 +1,28 @@
+DataBundle\Entity\Services: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    parcels: 
+      targetEntity:  Parcels
+      mappedBy:  services 
+  table:  services
+  fields: 
+   name: 
+      type:  string
+      length:  100
+      nullable:  true
+   description: 
+      type:  text
+      nullable:  tru
+   price:
+      type: integer
+      nullable: true  
+   active:
+      type: integer
+   type:
+      type: integer
+      

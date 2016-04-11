@@ -1,0 +1,26 @@
+DataBundle\Entity\LocationsTypesAddPrices: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+        locationstypes: 
+            targetEntity:  LocationsTypes
+            inversedBy:  locationstypesaddprices
+            joinColumn: 
+                name:  locations_types_id
+                referencedColumnName:  id
+        locations: 
+            targetEntity:  Locations
+            inversedBy:  locationstypesaddprices
+            joinColumn: 
+                name:  locations_id
+                referencedColumnName:  id
+  table:  locationstypesaddprices
+  fields: 
+   increase:
+      type:  integer
+      
+   

@@ -1,0 +1,219 @@
+DataBundle\Entity\Users: 
+  type:  entity
+  oneToMany: 
+    schoolscreater: 
+      targetEntity:  Schools
+      mappedBy: schoolscreater
+    subjectscreator: 
+      targetEntity:  Subjects
+      mappedBy:  subjectscreator
+    classesadministrator: 
+      targetEntity:  Classes
+      mappedBy:  classesadministrator
+    courses: 
+      targetEntity:  Courses
+      mappedBy:  users
+    coursesstudents: 
+      targetEntity:  CoursesStudents
+      mappedBy:  coursesstudents
+    classesstudents: 
+      targetEntity:  ClassesStudents
+      mappedBy:  classesstudents
+    posts: 
+      targetEntity:  Posts
+      mappedBy:  users
+    comments: 
+      targetEntity:  Comments
+      mappedBy:  users
+    schoolsteachers: 
+      targetEntity:  SchoolsTeachers
+      mappedBy:  users
+    teachingsubjects: 
+      targetEntity:  TeachingSubjects
+      mappedBy:  users
+    resources: 
+      targetEntity:  Resources
+      mappedBy:  users
+    questions: 
+      targetEntity:  Questions
+      mappedBy:  users
+    tests: 
+      targetEntity:  Tests
+      mappedBy:  users
+    from: 
+      targetEntity:  Transactions
+      mappedBy:  to
+    to: 
+      targetEntity:  Transactions
+      mappedBy:  from
+    ips: 
+      targetEntity:  Ips
+      mappedBy:  users
+    images:  
+      targetEntity:  Images
+      mappedBy:  users
+    likes: 
+      targetEntity:  Likes
+      mappedBy:  users
+    platforms: 
+      targetEntity:  Platforms
+      mappedBy:  users
+    testsusers: 
+      targetEntity:  TestsUsers
+      mappedBy:  users
+    notifications: 
+      targetEntity:  Notifications
+      mappedBy:  users
+    postsusers:
+      targetEntity:  PostsUsers
+      mappedBy:  users
+    facultiesteachers:
+      targetEntity:  FacultiesTeachers
+      mappedBy:  users
+    departmentsteachers:
+      targetEntity:  DepartmentsTeachers
+      mappedBy:  users
+    departmentsteachersvalidate:
+      targetEntity:  DepartmentsTeachers
+      mappedBy:  departmentsteachersvalidate
+    facultiesteachersvalidate:
+      targetEntity:  FacultiesTeachers
+      mappedBy:  facultiesteachersvalidate
+    facultiesadministrator:
+      targetEntity:  Faculties
+      mappedBy:  facultiesadministrator
+    departmentsadministrator:
+      targetEntity:  Departments
+      mappedBy:  departmentsadministrator
+    departmentsviceadministrators:
+      targetEntity:  DepartmentsViceAdministrators
+      mappedBy:  users
+    facultiesviceadministrators:
+      targetEntity:  FacultiesViceAdministrators
+      mappedBy:  users
+    facultiesviceadministratorsvalidate:
+      targetEntity:  FacultiesViceAdministrators
+      mappedBy:  facultiesviceadministratorsvalidate
+    departmentsviceadministratorsvalidate:
+      targetEntity:  DepartmentsViceAdministrators
+      mappedBy:  departmentsviceadministratorsvalidate
+    schoolsadministrators:
+      targetEntity:  Schools
+      mappedBy:  schoolsadministrators
+    files:
+      targetEntity:  Files
+      mappedBy:  users
+  manyToOne:  
+    locations: 
+      targetEntity:  Locations
+      inversedBy:  users
+      joinColumn: 
+        name: locations_id
+        referencedColumnName: id
+      nullable:  true
+    slugs: 
+      targetEntity:  Slugs
+      inversedBy:  users
+      joinColumn: 
+        name: slugs_id
+        referencedColumnName: id
+      nullable:  true
+  table:  users 
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  uniqueConstraints: 
+    email_index: 
+      columns: 
+        email
+  fields: 
+   password: 
+      type:  string
+      length:  60
+   token: 
+      type:  string
+      length:  60
+   firstname: 
+      type:  string
+      length:  255
+      nullable:  true
+   lastname: 
+      type:  string
+      length:  255
+      nullable:  true
+   fullname: 
+      type:  string
+      length:  255
+      nullable:  true
+   gender: 
+      type:  string
+      length:  15
+      nullable:  true
+   username: 
+      type:  string
+      length:  255
+      nullable:  true
+   is_active: 
+      type:  boolean
+      nullable:  true
+   email: 
+      type:  string
+      length:  255
+      nullable:  true
+      options: 
+        default:  ""
+   create_time: 
+      type:  string
+   type: 
+      type:  string
+      length:  25
+      nullable:  true
+   tel: 
+      type:  string
+      length:  15
+      nullable:  true
+      options: 
+        default:  ""
+   tel_status: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   email_status: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   active: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   lastlogin: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   balance: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   avatar: 
+      type:  string
+      nullable:  true
+      options: 
+        default:  ''
+   birthday:
+       type: date
+       nullable: true
+   last_request: 
+      type:  integer
+      nullable:  true
+   title:
+      type: string
+      length: 25
+      nullable: true
+    

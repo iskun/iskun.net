@@ -1,0 +1,32 @@
+DataBundle\Entity\TestsTypes: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    tests: 
+      targetEntity:  Tests
+      mappedBy:  teststypes
+    children: 
+      targetEntity:  TestsTypes
+      mappedBy:  parent
+  manyToOne: 
+    parent: 
+      targetEntity:  TestsTypes
+      inversedBy:  children
+      joinColumn: 
+        name: parent
+        referencedColumnName: id
+  table:  teststypes
+  fields: 
+   name: 
+      type:  string
+      length:  100
+   description: 
+      type:  string
+      length:  256
+   url: 
+      type:  string
+      length:  100

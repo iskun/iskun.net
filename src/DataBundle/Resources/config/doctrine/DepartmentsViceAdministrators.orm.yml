@@ -1,0 +1,28 @@
+DataBundle\Entity\DepartmentsViceAdministrators: 
+  type:  entity
+  manyToOne: 
+    departments: 
+      targetEntity:  Departments
+      inversedBy:  departmentsviceadministrators
+      joinColumn: 
+        name: departments_id
+        referencedColumnName: id
+    users: 
+      targetEntity:  Users
+      inversedBy:  departmentsviceadministrators
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    departmentsviceadministratorsvalidate: 
+      targetEntity:  Users
+      inversedBy:  departmentsviceadministratorsvalidate
+      joinColumn: 
+        name: validate_users_id
+        referencedColumnName: id
+  table:  departmentsviceadministrators
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 

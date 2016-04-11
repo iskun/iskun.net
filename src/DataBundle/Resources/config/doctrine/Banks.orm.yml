@@ -1,0 +1,22 @@
+DataBundle\Entity\Banks: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        banksaccounts: 
+          targetEntity:  BanksAccounts
+          mappedBy:  banks
+    table:  banks 
+    fields: 
+        name: 
+            type:  string
+            length: 256 
+        active:
+            stype: integer
+            nullable: true
+        
+            
+        

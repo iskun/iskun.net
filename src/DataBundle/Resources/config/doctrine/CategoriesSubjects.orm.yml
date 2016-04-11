@@ -1,0 +1,22 @@
+DataBundle\Entity\CategoriesSubjects: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  categoriessubjects
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+    categories: 
+      targetEntity:  Categories
+      inversedBy:  categoriessubjects
+      joinColumn: 
+        name: categories_id
+        referencedColumnName: id
+  table:  categoriessubjects
+  fields: 

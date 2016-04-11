@@ -1,0 +1,60 @@
+DataBundle\Entity\Resources: 
+  type:  entity
+  manyToOne: 
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  resources
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+    users: 
+      targetEntity:  Users
+      inversedBy:  resources
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  oneToMany: 
+    resourcesfiles: 
+      targetEntity:  Resourcesfiles
+      mappedBy:  resources
+  table:  resources
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   title: 
+      type:  string
+      length:  250
+   title_strip: 
+      type:  string
+      length:  250
+   description: 
+      type:  text
+      nullable:  true
+   description_strip: 
+      type:  text
+      nullable:  true
+   uploadtime: 
+      type:  integer
+   downloads: 
+      type:  integer
+      nullable:  true
+   comments: 
+      type:  integer
+      nullable:  true
+   like: 
+      type:  integer
+      nullable:  true
+   email: 
+      type:  string
+      length:  150
+   userid: 
+      type:  integer
+   url: 
+      type:  string
+      nullable:  true
+      
+ 

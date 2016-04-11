@@ -1,0 +1,33 @@
+DataBundle\Entity\Contests: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO 
+    oneToMany: 
+        contestsquestions: 
+            targetEntity:  ContestsQuestions
+            mappedBy:  contests
+    manyToOne: 
+        users: 
+            targetEntity:  Users
+            inversedBy:  contests
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+        courses: 
+            targetEntity:  Courses
+            inversedBy:  contests
+            joinColumn: 
+                name: courses_id
+                referencedColumnName: id
+    table:  contests
+    fields: 
+       name: 
+            type:  text
+       time: 
+            type:  integer
+       update_time: 
+            type:  integer
+        

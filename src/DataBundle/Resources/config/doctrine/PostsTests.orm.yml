@@ -1,0 +1,26 @@
+DataBundle\Entity\PostsTests: 
+  type:  entity
+  manyToOne: 
+    tests: 
+      targetEntity:  Tests
+      inversedBy:  poststests
+      joinColumn: 
+        name: tests_id
+        referencedColumnName: id
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  poststests
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+  table:  poststests
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256
+      nullable:  true

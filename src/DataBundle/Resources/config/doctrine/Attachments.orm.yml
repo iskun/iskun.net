@@ -1,0 +1,28 @@
+DataBundle\Entity\Attachments: 
+  type:  entity
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    attachmentstargets: 
+      targetEntity:  Attachmentstargets
+      mappedBy:  attachments
+  table:  attachments
+  fields: 
+    filename: 
+      type:  string
+      length:  100
+    format: 
+      type:  string
+      length:  100
+    thumbpage: 
+      type:  integer
+      nullable:  true
+    hash: 
+      type:  string
+      length:  150
+    thumbpage: 
+      type:  integer
+      nullable:  true

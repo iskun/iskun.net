@@ -1,0 +1,32 @@
+DataBundle\Entity\ServicesPricesIncrements: 
+    type:  entity
+    id: 
+     id: 
+        type:  integer
+        generator: 
+          strategy:  AUTO
+    manyToOne: 
+        pickuplocations: 
+            targetEntity:  Locations
+            inversedBy:  servicespricesincrements
+            joinColumn: 
+                name:  pickup_locations_id
+                referencedColumnName:  id
+        deliverylocations: 
+            targetEntity:  Locations
+            inversedBy:  servicespricesincrements
+            joinColumn: 
+                name:  delivery_locations_id
+                referencedColumnName:  id 
+        services: 
+            targetEntity:  Services
+            inversedBy:  servicespricesincrements
+            joinColumn: 
+                name:  services_id
+                referencedColumnName:  id 
+    table:  servicespricesincrements
+    fields:  
+        increase: 
+            type:  integer
+        
+   

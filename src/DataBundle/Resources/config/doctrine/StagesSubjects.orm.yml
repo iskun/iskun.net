@@ -1,0 +1,26 @@
+DataBundle\Entity\StagesSubjects: 
+  type:  entity
+  manyToOne: 
+    stages: 
+      targetEntity:  Stages
+      inversedBy:  stagessubjects
+      joinColumn: 
+        name: stages_id
+        referencedColumnName: id
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  stagessubjects
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+  table:  stagessubjects
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256
+      nullable:  true

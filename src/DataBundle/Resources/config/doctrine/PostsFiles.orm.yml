@@ -1,0 +1,36 @@
+DataBundle\Entity\PostsFiles: 
+  type:  entity
+  manyToOne: 
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  postsfiles
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+    files: 
+      targetEntity:  Files
+      inversedBy:  postsfiles
+      joinColumn: 
+        name: files_id
+        referencedColumnName: id
+      cascade:
+            ['remove']
+  table:  postsfiles
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   visible: 
+      type:  integer
+      nullable: true
+   sharing: 
+      type:  integer
+      nullable: true
+   follow: 
+      type:  string
+      nullable:  true
+   un_follow: 
+      type:  string
+      nullable:  true

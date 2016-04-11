@@ -1,0 +1,30 @@
+{% extends 'TeacherBundle::layout/layout.html.twig' %}
+{% block title %} Trang tài nguyên cá nhân {{user.fullname}}{% endblock %}
+
+{% block navbar %}
+    {{ render(controller('TeacherBundle:Default:navbar')) }} 
+{% endblock %}
+{% set mainController = 'indexController' %}
+{% block content %}
+    <div class="col-lg-3">
+        {{ render(controller('TeacherBundle:Default:profile')) }} 
+        {{ include('TeacherBundle::index/side.html.twig', { 'user': user }) }}
+    </div>
+    <div class="col-lg-7">
+        {{ include('TeacherBundle::index/timeline.html.twig', { 'user': user }) }}
+    </div>
+        <div class="col-lg-2">
+        {{ include('TeacherBundle::layout/ads.html.twig', { 'user': user }) }}
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ render(controller('TeacherBundle:Default:footer')) }} 
+{% endblock %}
+{% block notification %}
+    {{ include('TeacherBundle::notification.html.twig', { 'user': user }) }}
+{% endblock %}
+
+{% block javascript %}
+    <script src="/js/teacher/profileController.js"></script>
+    <script src="/js/teacher/indexController.js"></script>
+{% endblock %}

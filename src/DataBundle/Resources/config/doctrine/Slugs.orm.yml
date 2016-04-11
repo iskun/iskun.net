@@ -1,0 +1,26 @@
+DataBundle\Entity\Slugs: 
+  type:  entity
+  table:  slugs
+  oneToMany: 
+    schools: 
+      targetEntity:  Schools
+      mappedBy:  slugs
+    schoolstypes: 
+      targetEntity:  SchoolsTypes
+      mappedBy:  slugs
+    users: 
+      targetEntity:  Users
+      mappedBy:  slugs
+  fields: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+   slug: 
+      type:  string
+      length:  100
+   entity: 
+      type:  string
+      length:  25
+   

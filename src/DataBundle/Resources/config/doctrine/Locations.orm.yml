@@ -1,0 +1,57 @@
+DataBundle\Entity\Locations: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    children: 
+      targetEntity:  Locations
+      mappedBy:  parent
+    schools: 
+      targetEntity:  Schools
+      mappedBy:  locations
+    schoolsprovinces: 
+      targetEntity:  Schools
+      mappedBy:  schoolsprovinces
+    users: 
+      targetEntity:  Users
+      mappedBy:  locations
+  manyToOne: 
+    parent:  
+      targetEntity:  Locations
+      inversedBy:  children
+      joinColumn: 
+        name: parent
+        referencedColumnName: id
+  table:  locations
+  fields: 
+   name: 
+      type:  string
+      length:  100
+      nullable:  true
+   address:
+       type: string
+       length: 150
+       nullable: true
+   type: 
+      type:  string
+      length:  100
+      nullable:  true
+   latitude: 
+      type:  float
+      nullable:  true
+   longitude: 
+      type:  float
+      nullable:  true
+   depth: 
+      type:  integer
+      nullable:  true
+   url: 
+      type:  string
+      nullable:  true
+   code: 
+      type:  string
+      length:  100
+      nullable:  true

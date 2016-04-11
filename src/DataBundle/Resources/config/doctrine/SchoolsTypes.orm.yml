@@ -1,0 +1,39 @@
+DataBundle\Entity\SchoolsTypes: 
+  type:  entity
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    schools: 
+      targetEntity:  Schools
+      mappedBy:  schoolstypes
+    schoolstypesgrades: 
+      targetEntity:  SchoolsTypesGrades
+      mappedBy:  schoolstypes
+    children: 
+        targetEntity:  SchoolsTypes
+        mappedBy:  parent
+  manyToOne: 
+    parent: 
+        targetEntity:  SchoolsTypes
+        inversedBy:  children
+        joinColumn: 
+            name:  parent_id
+            referencedColumnName:  id
+    slugs: 
+        targetEntity:  Slugs
+        inversedBy:  schoolstypes
+        joinColumn: 
+          name:  slugs_id
+          referencedColumnName: id
+  table:  schoolstypes
+  fields: 
+    name: 
+      type:  string 
+      length:  100
+    description: 
+      type:  text
+    orders: 
+      type:  integer

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head ng-app="IskunApp">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iskun.net | đăng nhập</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="font-bold">Yêu cầu đăng nhập</h2>
+
+                <p>
+                    Xin chào bạn.
+                </p>
+
+                <p>
+                    Bạn đang truy cập vào đường dẫn http://iskun.net{{redirect}}, vui lòng đăng nhập để vào được trang này
+                </p>
+
+                <p>
+                    <small>
+                        Yêu cầu đăng nhập lại thường xảy ra khi bạn không tác động vào trang trong 1 thời gian dài
+                    </small>
+                </p>
+
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form class="m-t" role="form" action="index.html">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email / Số điện thoại" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Mật khẩu" required="">
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Đăng nhập</button>
+
+                        
+                        <a href="#">
+                            <small>Quên mật khẩu?</small>
+                        </a>
+                        <br />
+                        <a href="#">
+                            <small>Đăng ký tài khoản mới</small>
+                        </a>
+                        <div style="margin-top: 20px;"> 
+                        {{ render(controller('HomeBundle:Default:fbLoginButton', { 'redirect': redirect })) }} 
+                        </div>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                Mạng trường học điện tử iskun.net
+            </div>
+            <div class="col-md-6 text-right">
+               <small>© 2016</small>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Custom and plugin javascript -->
+
+<script src="/js/plugins/pace/pace.min.js"></script>
+
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-cookies.js"></script>
+<script src="/js/ng-infinite-scroll.min.js"></script>
+<script src="/js/angular-locale_vi-vn.js"></script>
+<script src="/js/ui-bootstrap-tpls-1.2.5.min.js"></script> 
+<script src="/js/bootbox.min.js"></script>
+<script src="/js/home/iskunapp.js"></script> 
+</html>

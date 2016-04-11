@@ -1,0 +1,30 @@
+DataBundle\Entity\PostsUsers: 
+  type:  entity
+  manyToOne:
+    users: 
+      targetEntity:  Users
+      inversedBy:  postsusers
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  postsusers
+      joinColumn: 
+        name: posts_id
+        referencedColumnName: id
+  table:  postsusers
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   visible: 
+      type:  integer
+   sharing: 
+      type:  integer
+   follow: 
+      type:  string
+   un_follow:  
+      type:  string

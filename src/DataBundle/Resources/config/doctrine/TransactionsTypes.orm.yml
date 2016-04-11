@@ -1,0 +1,31 @@
+DataBundle\Entity\TransactionsTypes: 
+  type:  entity
+  oneToMany: 
+        children: 
+            targetEntity:  TransactionsTypes
+            mappedBy:  parent
+        transactions: 
+            targetEntity:  Transactions
+            mappedBy:  transactionstypes
+  manyToOne: 
+    parent: 
+        targetEntity:  TransactionsTypes
+        inversedBy:  children
+        joinColumn: 
+            name: parent
+            referencedColumnName: id
+        nullable:  true
+  table:  transactionstypes
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   name: 
+      type:  string
+   percentage: 
+      type:  integer
+   amount: 
+      type:  integer

@@ -1,0 +1,28 @@
+DataBundle\Entity\Likes: 
+  type:  entity
+  manyToOne: 
+    images: 
+      targetEntity:  Images
+      inversedBy:  likes
+      joinColumn: 
+        name: images_id
+        referencedColumnName: id
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  likes
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+    users: 
+      targetEntity:  Users
+      inversedBy:  likes
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  likes
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 

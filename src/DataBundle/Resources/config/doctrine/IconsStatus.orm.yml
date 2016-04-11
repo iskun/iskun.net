@@ -1,0 +1,17 @@
+DataBundle\Entity\IconsStatus: 
+  type:  entity
+  oneToMany: 
+    icons: 
+      targetEntity:  Icons
+      mappedBy:  iconsstatus
+  table:  iconsstatus
+  id: 
+   id:  
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   name: 
+      type:  string
+      length:  150

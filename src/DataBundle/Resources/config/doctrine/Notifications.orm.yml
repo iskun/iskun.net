@@ -1,0 +1,30 @@
+DataBundle\Entity\Notifications: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  notifications
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    notificationstypes: 
+      targetEntity:  NotificationsTypes
+      inversedBy:  notifications
+      joinColumn: 
+        name: notificationstypes_id
+        referencedColumnName: id
+  oneToMany: 
+    notificationsdatas: 
+      targetEntity:  NotificationsDatas
+      mappedBy:  notifications
+  table:  notifications
+  fields: 
+   time: 
+      type:  integer
+   read: 
+      type:  integer

@@ -1,0 +1,23 @@
+DataBundle\Entity\AnswersDatas: 
+  type:  entity
+  table:  answersdatas
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    answers: 
+        targetEntity:  Answers
+        inversedBy:  answersdatas
+        joinColumn: 
+            name:  answers_id
+            referencedColumnName:  id
+  fields: 
+    index: 
+      type:  string
+      length:  50
+    value: 
+      type:  string
+      length:  100

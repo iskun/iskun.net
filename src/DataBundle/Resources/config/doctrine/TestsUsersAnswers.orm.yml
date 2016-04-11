@@ -1,0 +1,23 @@
+DataBundle\Entity\TestsUsersAnswers: 
+    type:  entity
+    id: 
+        ptuid: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        questions: 
+            targetEntity:  Questions
+            inversedBy:  testsusersanswers
+            joinColumn: 
+                name:  questions_id
+                referencedColumnName:  id
+    oneToMany: 
+        answersdatas: 
+            targetEntity:  AnswersDatas
+            mappedBy:  testsusersanswers
+    table:  testsusersanswers
+    fields: 
+        tucontent: 
+            type:  text
+        

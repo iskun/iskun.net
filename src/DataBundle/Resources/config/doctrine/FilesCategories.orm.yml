@@ -1,0 +1,23 @@
+DataBundle\Entity\FilesCategories: 
+  type:  entity
+  oneToMany: 
+    files: 
+      targetEntity:  Files
+      mappedBy:  filesformats
+  table:  filescategories
+  id: 
+   id:  
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   name: 
+      type:  string
+      length:  150
+   description: 
+      type:  text
+      nullable:  true
+   icon:  
+      type:  string
+      length:  150

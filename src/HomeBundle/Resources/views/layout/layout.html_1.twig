@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="IskunApp">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{% block title %}{{user.fullname}} - iskun.net{% endblock %}</title>
+
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
+
+
+    </head>
+
+    <body class="top-navigation" {% if mainController is defined %} id="{{mainController}}" ng-controller="{{mainController}}" {% endif%}>
+
+        <div id="wrapper">
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom white-bg">
+                {% block navbar %}{% endblock %}
+
+            </div>
+            <div class="wrapper wrapper-content" style="padding-top:55px;">
+                <div class="container" >
+
+                {% block content %}{% endblock %}
+
+            </div>
+
+        </div>
+        <div class="footer">
+        {% block footer %}{% endblock %}
+
+    </div>
+
+</div>
+</div>
+
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Custom and plugin javascript -->
+
+<script src="/js/plugins/pace/pace.min.js"></script>
+
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-cookies.js"></script>
+<script src="/js/ng-infinite-scroll.min.js"></script>
+<script src="/js/angular-locale_vi-vn.js"></script>
+<script src="/js/ui-bootstrap-tpls-1.2.5.min.js"></script> 
+<script src="/js/bootbox.min.js"></script>
+<script src="/js/teacher/iskunapp.js"></script>
+
+<script src="/js/inspinia.js"></script> 
+{% block javascript %}{% endblock %}
+
+
+</body>
+
+</html>

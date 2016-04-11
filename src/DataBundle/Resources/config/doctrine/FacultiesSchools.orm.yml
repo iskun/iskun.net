@@ -1,0 +1,24 @@
+DataBundle\Entity\FacultiesSchools: 
+  type:  entity
+  manyToOne: 
+    faculties: 
+      targetEntity:  Faculties
+      inversedBy:  facultiesschools
+      joinColumn: 
+        name: faculties_id
+        referencedColumnName: id
+    schools: 
+      targetEntity:  Schools
+      inversedBy:  facultiesschools
+      joinColumn: 
+        name: schools_id
+        referencedColumnName: id
+  table:  facultiesschools
+  id: 
+    fs_id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+    fs_status: 
+      type:  integer

@@ -1,0 +1,20 @@
+DataBundle\Entity\NotificationsTypes: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        notifications: 
+            targetEntity:  Notifications
+            mappedBy:  notificationstypes
+    table:  notificationstypes
+    fields: 
+       name: 
+            type:  string
+            length:  50
+       message: 
+            type:  string
+       default_message: 
+            type:  string

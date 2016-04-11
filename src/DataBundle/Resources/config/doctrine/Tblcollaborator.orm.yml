@@ -1,0 +1,30 @@
+DataBundle\Entity\Tblcollaborator: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    table:  tblcollaborator
+    fields: 
+        full_name: 
+            type:  string
+            length:  45
+        login_name: 
+            type:  string
+            length:  45
+        cellphone: 
+            type:  string
+            length:  15
+        passwd: 
+            type:  string
+            length:  65
+        activated: 
+            type:  integer
+        created_time: 
+            type:  string
+        updated_time: 
+            type:  string
+        author: 
+            type:  integer
+        

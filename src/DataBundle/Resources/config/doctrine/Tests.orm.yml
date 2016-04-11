@@ -1,0 +1,81 @@
+DataBundle\Entity\Tests: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        testsquestions: 
+            targetEntity:  TestsQuestions
+            mappedBy:  tests
+        children: 
+            targetEntity:  Tests
+            mappedBy:  parent
+        testsusers: 
+            targetEntity:  TestsUsers
+            mappedBy:  tests
+        poststests: 
+            targetEntity:  PostsTests
+            mappedBy:  tests
+    manyToOne: 
+        subjectschapters: 
+            targetEntity:  SubjectsChapters
+            inversedBy:  tests
+            joinColumn: 
+                name: subjectschapters_id
+                referencedColumnName: id
+        subjects: 
+            targetEntity:  Subjects
+            inversedBy:  tests
+            joinColumn: 
+                name: subjects_id
+                referencedColumnName: id
+        users: 
+            targetEntity:  Users
+            inversedBy:  tests
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+        teststypes: 
+            targetEntity:  TestsTypes
+            inversedBy:  tests
+            joinColumn: 
+                name: teststypes_id
+                referencedColumnName: id
+        parent: 
+            targetEntity:  Tests
+            inversedBy:  children
+            joinColumn: 
+                name:  parent_id
+                referencedColumnName: id
+    table:  tests
+    fields: 
+       name: 
+            type:  string
+            length:  250
+       description: 
+            type:  string
+            length:  250
+       url: 
+            type:  string
+            length:  250
+       status: 
+            type:  string
+            length:  100
+       time: 
+            type:  integer
+            nullable:  true
+       sharing: 
+            type:  integer
+       pricing: 
+            type:  integer
+       take: 
+            type:  integer
+       use: 
+            type:  string
+            length:  50
+            nullable:  true
+       create_time: 
+            type:  integer
+            nullable:  true

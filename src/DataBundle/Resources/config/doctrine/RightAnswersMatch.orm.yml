@@ -1,0 +1,23 @@
+DataBundle\Entity\RightAnswersMatch: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        questions: 
+            targetEntity:  Questions
+            inversedBy:  answers
+            joinColumn: 
+                name:  questions_id
+                referencedColumnName:  id
+    oneToMany: 
+        answersdatas: 
+            targetEntity:  AnswersDatas
+            mappedBy:  answers
+    table:  rightanswersmatch
+    fields: 
+        content: 
+            type:  text
+        

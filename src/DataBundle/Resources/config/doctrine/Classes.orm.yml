@@ -1,0 +1,58 @@
+DataBundle\Entity\Classes: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    schools: 
+      targetEntity:  Schools
+      inversedBy:  classes
+      joinColumn: 
+        name: schools_id
+        referencedColumnName: id
+      nullable:  true
+    schoolsyears: 
+      targetEntity:  SchoolsYears
+      inversedBy:  classes
+      joinColumn: 
+        name: schoolsyears_id
+        referencedColumnName: id
+    grades: 
+      targetEntity:  Grades
+      inversedBy:  classes
+      joinColumn: 
+        name: grades_id
+        referencedColumnName: id
+    classesadministrator: 
+      targetEntity:  Users
+      inversedBy:  classesadministrator
+      joinColumn: 
+        name: administrator_teacher_id
+        referencedColumnName: id
+  oneToMany: 
+    classesstudents: 
+      targetEntity:  ClassesStudents
+      mappedBy:  classesstudents
+    courses: 
+      targetEntity:  Courses
+      mappedBy:  classes
+    postsclasses: 
+      targetEntity:  PostsClasses
+      mappedBy:  classes
+    facultiesclasses: 
+      targetEntity:  FacultiesClasses
+      mappedBy:  classes
+  table:  classes
+  fields: 
+   name: 
+      type:  string
+      length:  100
+   description: 
+      type:  string
+      length:  150
+   create_time: 
+      type:  string
+      nullable:  true
+          

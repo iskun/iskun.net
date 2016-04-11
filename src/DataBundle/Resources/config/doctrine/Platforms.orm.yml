@@ -1,0 +1,45 @@
+DataBundle\Entity\Platforms: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        users: 
+            targetEntity:  Users
+            inversedBy:  platforms
+            joinColumn: 
+                name: users_id
+                referencedColumnName: id
+    table:  platforms
+    fields: 
+        ip: 
+            type:  string
+            length:  50
+        browser: 
+            type:  string
+            length:  100
+        browser_version: 
+            type:  string
+            length:  100
+        mobile: 
+            type:  string
+            length:  100
+        platform: 
+            type:  string
+            length:  100
+        is_mobile: 
+            type:  integer 
+        full_info: 
+            type:  string
+            length:  150
+        is_robot: 
+            type:  integer
+        robot: 
+            type:  string
+            length:  100 
+    uniqueConstraints: 
+        up: 
+            columns:  [id, full_info] 
+        

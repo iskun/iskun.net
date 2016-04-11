@@ -1,0 +1,74 @@
+DataBundle\Entity\Subjects: 
+  type:  entity
+  manyToOne: 
+    grades: 
+      targetEntity:  Grades
+      inversedBy:  subjects
+      joinColumn: 
+        name: grades_id
+        referencedColumnName: id
+    subjectscreator: 
+      targetEntity:  Users
+      inversedBy:  subjectscreator
+      joinColumn: 
+        name: creator_id
+        referencedColumnName: id
+    slugs: 
+      targetEntity:  Slugs
+      inversedBy:  users
+      joinColumn: 
+        name: slugs_id
+        referencedColumnName: id
+      nullable:  true
+  oneToMany: 
+    courses: 
+      targetEntity:  Courses
+      mappedBy:  subjects
+    resources: 
+      targetEntity:  Resources
+      mappedBy:  subjects
+    subjectschapters: 
+      targetEntity:  SubjectsChapters
+      mappedBy:  subjects
+    subjectsusers: 
+      targetEntity:  SubjectsUsers
+      mappedBy:  subjects
+    teachingsubjects: 
+      targetEntity:  TeachingSubjects
+      mappedBy:  subjects
+    tests: 
+      targetEntity:  Tests
+      mappedBy:  subjects
+    questions: 
+      targetEntity:  Questions
+      mappedBy:  subjects
+    categoriessubjects: 
+      targetEntity:  CategoriesSubjects
+      mappedBy:  subjects
+    stagessubjects: 
+      targetEntity:  StagesSubjects
+      mappedBy:  subjects
+  table:  subjects
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+   name: 
+      type:  string
+      length:  150
+   type: 
+      type:  string
+      length:  50
+      nullable: true
+   color: 
+      type:  string
+      length:  50
+      nullable: true
+   thumbnail:
+      type: string
+      length: 50
+      nullable: true
+    

@@ -1,0 +1,13 @@
+DataBundle\Entity\Sharings: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    table:  sharings
+    fields: 
+       name: 
+            type:  string
+            length:  250
+       

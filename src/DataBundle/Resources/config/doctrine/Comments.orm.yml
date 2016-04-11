@@ -1,0 +1,67 @@
+DataBundle\Entity\Comments: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  comments
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    parent: 
+      targetEntity:  Comments
+      inversedBy:  children
+      joinColumn: 
+        name:  parent_id
+        referencedColumnName: id
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  comments
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+    files: 
+      targetEntity:  Files
+      inversedBy:  comments
+      joinColumn: 
+        name:  files_id
+        referencedColumnName:  id
+  oneToMany: 
+    children: 
+      targetEntity:  Comments
+      mappedBy:  parent
+    commentsfiles: 
+      targetEntity:  CommentsFiles
+      mappedBy:  comments
+  table:  comments
+  fields: 
+   ip: 
+      type:  string
+      nullable:  true
+   status:  
+      type:  string
+      nullable:  true
+   likes: 
+      type:  integer
+      nullable:  true
+      options: 
+        default:  0
+   likers: 
+      type:  text
+      nullable:  true
+   content: 
+      type:  text
+   time:  
+      type:  integer
+      nullable:  true
+   update_time: 
+      type:  integer
+      nullable:  true
+   editreason: 
+      type:  text
+      nullable:  true

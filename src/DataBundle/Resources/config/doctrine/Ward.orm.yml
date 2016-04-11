@@ -1,0 +1,21 @@
+DataBundle\Entity\Ward: 
+    type:  entity
+    id: 
+        wardid: 
+            type:  integer
+    manyToOne: 
+        district: 
+            targetEntity:  District
+            inversedBy:  ward
+            joinColumn: 
+                name:  districtid
+                referencedColumnName:  districtid
+    table:  ward
+    fields: 
+        name: 
+            type:  text
+        type: 
+            type:  text
+        location: 
+            type:  text
+        

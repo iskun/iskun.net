@@ -1,0 +1,94 @@
+DataBundle\Entity\Schools: 
+  #schools managers?
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    classes: 
+      targetEntity:  Classes
+      mappedBy:  schools
+    schoolsfaculties: 
+      targetEntity:  Faculties
+      mappedBy:  schools
+    schoolsyears: 
+      targetEntity:  SchoolsYears
+      mappedBy:  schools
+    schoolsteachers: 
+      targetEntity:  SchoolsTeachers
+      mappedBy:  schools
+  manyToOne: 
+    locations: 
+      targetEntity:  Locations
+      inversedBy:  schools
+      joinColumn: 
+        name: locations_id
+        referencedColumnName: id
+    schoolsprovinces: 
+      targetEntity:  Locations
+      inversedBy:  schoolsprovinces
+      joinColumn: 
+        name: province_locations_id
+        referencedColumnName: id
+    schoolstypes: 
+      targetEntity:  SchoolsTypes
+      inversedBy:  schools
+      joinColumn: 
+        name:  schoolstypes_id
+        referencedColumnName:  id
+      nullable:  true
+    schoolscreater: 
+      targetEntity:  Users
+      inversedBy:  schoolscreater
+      joinColumn: 
+        name:  creator_id
+        referencedColumnName: id
+    schoolsadministrators: 
+      targetEntity:  Users
+      inversedBy:  schoolsadministrators
+      joinColumn: 
+        name:  schooladministrator_id
+        referencedColumnName: id
+    slugs: 
+      targetEntity:  Slugs
+      inversedBy:  schools
+      joinColumn: 
+        name:  slugs_id
+        referencedColumnName: id
+  table:  schools
+  fields: 
+   name: 
+      type:  string
+      nullable:  false
+   create_time: 
+      type:  integer
+      nullable:  false
+   strip: 
+      type:  string
+      nullable:  true
+   url: 
+      type:  string
+      nullable:  true
+   address: 
+      type:  string
+      nullable:  true
+      options: 
+        default:  ""
+   mobile: 
+      type:  string
+      nullable:  true
+      options: 
+        default:  ""
+   latitude: 
+      type:  float
+      nullable:  true
+   longitude: 
+      type:  float
+      nullable:  true
+   logo: 
+      type:  string
+      nullable:  true
+      
+

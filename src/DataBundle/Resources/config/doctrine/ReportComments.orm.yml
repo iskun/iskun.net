@@ -1,0 +1,38 @@
+DataBundle\Entity\ReportComments: 
+  type:  entity
+  id: 
+    rid: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    comments: 
+      targetEntity:  Comments
+      inversedBy:  reportcomments
+      joinColumn: 
+        name: comments_id
+        referencedColumnName: id
+    users: 
+      targetEntity:  Users
+      inversedBy:  reportcomments
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  reportcomments
+  fields: 
+    rreason: 
+      type:  string
+      nullable:  true
+    rstatus: 
+      type:  string
+      nullable:  true
+    rresponse: 
+      type:  string
+      nullable:  true
+    rtime:  
+      type:  integer
+      nullable:  true
+    rip:  
+      type:  string
+      nullable:  true

@@ -1,0 +1,16 @@
+DataBundle\Entity\Province: 
+    type:  entity
+    id: 
+        provinceid: 
+            type:  integer
+    oneToMany: 
+        district: 
+            targetEntity:  District
+            mappedBy:  province
+    table:  province
+    fields: 
+        name: 
+            type:  text
+        type: 
+            type:  text
+        

@@ -1,0 +1,25 @@
+DataBundle\Entity\SubjectsSchoolsTypes: 
+  type:  entity
+  manyToOne: 
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  subjectsschoolstypes
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+    schoolstypes: 
+      targetEntity:  SchoolsTypes
+      inversedBy:  subjectsschoolstypes
+      joinColumn: 
+        name:  schoolstypes_id
+        referencedColumnName:  id
+  table:  subjectsschoolstypes
+  id: 
+  id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256

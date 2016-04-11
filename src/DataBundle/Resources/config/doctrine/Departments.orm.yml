@@ -1,0 +1,35 @@
+DataBundle\Entity\Departments: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  oneToMany: 
+    departmentsteachers: 
+      targetEntity:  DepartmentsTeachers
+      mappedBy:  departments
+    departmentsviceadministrators: 
+      targetEntity:  DepartmentsViceAdministrators
+      mappedBy:  departments
+  manyToOne:
+    faculties: 
+      targetEntity:  Faculties
+      inversedBy:  facultiesdepartments
+      joinColumn: 
+        name: faculties_id
+        referencedColumnName: id
+    departmentsadministrator: 
+      targetEntity:  Users
+      inversedBy:  departmentsadministrator
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  departments
+  fields: 
+   name: 
+      type:  string
+      length:  100
+   description: 
+      type:  string
+      length:  150      

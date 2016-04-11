@@ -1,0 +1,42 @@
+DataBundle\Entity\Grades: 
+  type:  entity
+  oneToMany: 
+    subjects: 
+      targetEntity:  Subjects
+      mappedBy:  grades
+    classes: 
+      targetEntity:  Classes
+      mappedBy:  grades
+    schoolstypesgrades: 
+      targetEntity:  SchoolsTypesGrades
+      mappedBy:  grades
+  manyToOne: 
+    stages: 
+      targetEntity:  Stages
+      inversedBy:  grades
+      joinColumn: 
+        name: stages_id
+        referencedColumnName: id
+  table:  grades
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO  
+  fields: 
+   name: 
+      type:  string
+      length:  255
+   url: 
+      type:  string
+      length:  50
+   color:
+      type: string
+      length: 50
+      nullable: true
+  
+
+  
+
+
+  

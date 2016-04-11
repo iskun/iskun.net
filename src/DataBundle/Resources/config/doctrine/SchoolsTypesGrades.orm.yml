@@ -1,0 +1,22 @@
+DataBundle\Entity\SchoolsTypesGrades: 
+  type:  entity
+  manyToOne: 
+    grades: 
+      targetEntity:  Grades
+      inversedBy:  schoolstypesgrades
+      joinColumn: 
+        name: grades_id
+        referencedColumnName: id
+    schoolstypes: 
+      targetEntity:  SchoolsTypes
+      inversedBy:  schoolstypesgrades
+      joinColumn: 
+        name:  schoolstypes_id
+        referencedColumnName:  id
+  table:  schoolstypesgrades
+  id: 
+    id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 

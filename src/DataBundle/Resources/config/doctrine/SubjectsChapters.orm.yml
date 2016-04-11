@@ -1,0 +1,29 @@
+DataBundle\Entity\SubjectsChapters: 
+  type:  entity
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  subjectschapters
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+  oneToMany: 
+    questions: 
+      targetEntity:  Questions
+      mappedBy:  subjectschapters
+    tests: 
+      targetEntity:  Tests
+      mappedBy:  subjectschapters
+  table:  subjectschapters
+  fields: 
+   name: 
+      type:  string
+      length:  100
+   url: 
+      type:  string
+      length:  100

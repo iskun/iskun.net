@@ -1,0 +1,30 @@
+DataBundle\Entity\Prices: 
+    type:  entity
+    id: 
+     id: 
+        type:  integer
+        generator: 
+          strategy:  AUTO
+    manyToOne: 
+        pickuplocations: 
+            targetEntity:  Locations
+            inversedBy:  prices
+            joinColumn: 
+                name:  pickup_locations_id
+                referencedColumnName:  id
+        deliverylocations: 
+            targetEntity:  Locations
+            inversedBy:  prices
+            joinColumn: 
+                name:  delivery_locations_id
+                referencedColumnName:  id
+    table:  prices
+    fields:  
+        min: 
+            type:  integer
+        max: 
+            type:  integer
+        price: 
+            type:  integer
+
+   

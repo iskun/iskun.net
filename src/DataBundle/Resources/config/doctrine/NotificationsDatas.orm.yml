@@ -1,0 +1,23 @@
+DataBundle\Entity\NotificationsDatas: 
+  type:  entity
+  table:  notificationsdatas
+  id: 
+    nd_id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  manyToOne: 
+    notifications: 
+        targetEntity:  Notifications
+        inversedBy:  notificationsdatas
+        joinColumn: 
+            name: notifications_id
+            referencedColumnName: id
+  fields: 
+    datindex: 
+      type:  string
+      length:  50
+    datvalue: 
+      type:  string
+      length:  100

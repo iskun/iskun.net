@@ -1,0 +1,38 @@
+DataBundle\Entity\PostsSchools: 
+  type:  entity
+  manyToOne: 
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  postsclasses
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+    schools: 
+      targetEntity:  Schools
+      inversedBy:  postsschools
+      joinColumn: 
+        name: schools_id
+        referencedColumnName: id
+    courses: 
+      targetEntity:  Courses
+      inversedBy:  postsclasses
+      joinColumn: 
+        name: courses_id
+        referencedColumnName: id
+  table:  postsschools
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   visible: 
+      type:  integer
+   sharing: 
+      type:  integer
+   follow: 
+      type:  string
+      nullable:  true
+   un_follow: 
+      type:  string
+      nullable:  true

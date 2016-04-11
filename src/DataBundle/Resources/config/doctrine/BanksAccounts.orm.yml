@@ -1,0 +1,39 @@
+DataBundle\Entity\BanksAccounts: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        banks: 
+            targetEntity:  Banks
+            inversedBy:  banksaccounts
+            joinColumn: 
+                name:  banks_id
+                referencedColumnName:  id
+        users: 
+            targetEntity:  Users
+            inversedBy:  banksaccounts
+            joinColumn: 
+                name:  users_id
+                referencedColumnName:  id
+    table:  banksaccounts 
+    fields: 
+        card_number:
+            type: string
+            length: 256
+            nullable: true
+        account_number: 
+            type:  string
+            length: 256
+            nullable: true
+        name:
+            type: string
+            length: 256
+        isdefault:
+            type: string
+            length: 25
+            nullable: true 
+            
+        

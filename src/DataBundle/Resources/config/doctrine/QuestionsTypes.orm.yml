@@ -1,0 +1,53 @@
+DataBundle\Entity\QuestionsTypes: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        questions: 
+            targetEntity:  Questions
+            mappedBy:  questionstypes
+        children: 
+            targetEntity:  QuestionsTypes
+            mappedBy:  parent
+    manyToOne: 
+        parent: 
+          targetEntity:  QuestionsTypes
+          inversedBy:  children
+          joinColumn: 
+            name: parent
+            referencedColumnName: id
+        slugs: 
+            targetEntity:  Slugs
+            inversedBy:  users
+            joinColumn: 
+              name: slugs_id
+              referencedColumnName: id
+            nullable:  true
+    table:  questionstypes
+    fields: 
+       name: 
+            type:  string
+            length:  50
+       description: 
+            type:  string
+            length:  500
+            nullable: true
+       tutotial: 
+            type:  string
+            length:  500
+            nullable: true
+       marktype: 
+            type:  boolean
+            nullable: true
+       color: 
+            type:  string
+            length:  25
+            nullable: true
+       icon: 
+            type:  string
+            length:  25
+            nullable: true
+        

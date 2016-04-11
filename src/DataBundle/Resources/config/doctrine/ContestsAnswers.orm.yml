@@ -1,0 +1,19 @@
+DataBundle\Entity\ContestsAnswers: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    manyToOne: 
+        contestsquestions: 
+            targetEntity:  ContestsQuestions
+            inversedBy:  answers
+            joinColumn: 
+                name:  cid
+                referencedColumnName:  cid
+    table:  contestsanswers
+    fields: 
+        content: 
+            type:  text
+        

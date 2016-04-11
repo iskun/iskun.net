@@ -1,0 +1,92 @@
+DataBundle\Entity\Posts: 
+  type:  entity
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  posts
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    poststypes: 
+      targetEntity:  PostsTypes
+      inversedBy:  posts
+      joinColumn: 
+        name: poststypes_id
+        referencedColumnName: id
+    sharings: 
+      targetEntity:  Sharings
+      inversedBy:  posts
+      joinColumn: 
+        name: sharings_id
+        referencedColumnName: id
+  oneToMany: 
+    postsusers: 
+        targetEntity:  PostsUsers
+        mappedBy:  posts
+    postscourses: 
+        targetEntity:  PostsCourses
+        mappedBy:  posts
+    poststests: 
+        targetEntity:  PostsTests
+        mappedBy:  posts
+    postsclasses: 
+        targetEntity:  PostsClasses
+        mappedBy:  posts
+    comments: 
+      targetEntity:  Comments
+      mappedBy:  posts
+    likes: 
+      targetEntity:  Likes
+      mappedBy:  posts
+    postsdatas: 
+      targetEntity:  PostsDatas
+      mappedBy:  posts
+    postsimages: 
+      targetEntity:  PostsImages
+      mappedBy:  posts
+    postsclasses: 
+        targetEntity:  PostsClasses
+        mappedBy:  posts
+    postsfiles: 
+        targetEntity:  PostsFiles
+        mappedBy:  posts
+        cascade:
+            ['remove']
+    postssubjects: 
+        targetEntity:  PostsSubjects
+        mappedBy:  posts 
+        cascade:
+            ['remove']
+  table:  posts
+  id: 
+    id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+    ip: 
+      type:  string
+    likers: 
+      type:  text
+      nullable:  true
+    title:
+      type: string
+      nullable: true
+    content: 
+      type:  text
+      nullable: true
+    time: 
+      type:  string
+    lastedit: 
+      type:  integer
+      nullable:  true
+    url: 
+      type:  string
+      nullable:  true
+    commentsnumbers:
+        type: integer
+        nullable: true
+    likesnumbers:
+        type: integer
+        nullable: true

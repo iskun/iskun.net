@@ -1,0 +1,40 @@
+DataBundle\Entity\PostsSubjects: 
+  type:  entity
+  manyToOne: 
+    posts: 
+      targetEntity:  Posts
+      inversedBy:  postssubjects
+      joinColumn: 
+        name:  posts_id
+        referencedColumnName:  id
+    subjects: 
+      targetEntity:  Subjects
+      inversedBy:  postssubjects
+      joinColumn: 
+        name: subjects_id
+        referencedColumnName: id
+    subjectschapters: 
+      targetEntity:  SubjectsChapters
+      inversedBy:  postssubjects
+      joinColumn:  
+        name: subjectschapters_id
+        referencedColumnName: id
+  table:  postssubjects
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   visible: 
+      type:  integer
+      nullable: true
+   sharing: 
+      type:  integer
+      nullable: true
+   follow: 
+      type:  string
+      nullable:  true
+   un_follow: 
+      type:  string
+      nullable:  true

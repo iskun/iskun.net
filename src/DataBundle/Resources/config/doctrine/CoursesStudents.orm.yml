@@ -1,0 +1,29 @@
+DataBundle\Entity\CoursesStudents: 
+  type:  entity
+  manyToOne: 
+    coursesstudents: 
+      targetEntity:  Courses
+      inversedBy:  coursesstudents
+      joinColumn: 
+        name: courses_id
+        referencedColumnName: id
+    coursesstudents: 
+      targetEntity:  Users
+      inversedBy:  coursesstudents
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+  table:  coursesstudents
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  string
+      length:  256
+   join_date: 
+      type:  integer
+   role: 
+      type:  string

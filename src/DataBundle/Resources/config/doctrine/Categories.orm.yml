@@ -1,0 +1,35 @@
+DataBundle\Entity\Categories: 
+    type:  entity
+    id: 
+       id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        children: 
+          targetEntity:  Categories
+          mappedBy:  parent
+        categoriessubjects: 
+          targetEntity:  CategoriesSubjects
+          mappedBy:  categories
+    manyToOne: 
+        parent: 
+          targetEntity:  Categories
+          inversedBy:  children
+          joinColumn: 
+            name: parent
+            referencedColumnName: id
+          nullable:  true
+    table:  categories
+    fields: 
+       title: 
+            type:  string
+            length:  150
+       description: 
+            type:  text
+       depth: 
+            type:  integer
+       url: 
+            type:  string
+            length:  150
+        

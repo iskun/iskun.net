@@ -1,0 +1,51 @@
+<nav class="navbar white-bg navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <i class="fa fa-reorder"></i> 
+        </button>
+        <a href="#" class="navbar-brand">Iskun.net</a>
+    </div> 
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav">
+
+        </ul>
+        <ul class="nav navbar-top-links navbar-right">
+            <li {% if request.attributes.get('_route') == 'truong-hoc' %} class="active" {% endif %}>
+                <a href="/truong-hoc" >
+                    <i class="fa fa-university"></i> Trường học
+                </a>
+            </li>
+            <li {% if request.attributes.get('_route') == 'lop-hoc' %} class="active" {% endif %}>
+                <a href="/lop-hoc">
+                    <i class="fa fa-group"></i> Lớp học
+                </a>
+            </li>
+            <li {% if request.attributes.get('_route') == 'cau-hoi' %} class="active" {% endif %}>
+                <a href="/cau-hoi">
+                    <i class="fa fa-question-circle"></i> Câu hỏi
+                </a>
+            </li>
+            <li {% if request.attributes.get('_route') == 'de-thi' %} class="active" {% endif %}>
+                <a href="/de-thi">
+                    <i class="fa fa-list"></i> Đề thi
+                </a>
+            </li>
+            <li {% if request.attributes.get('_route') == 'tai-nguyen' %} class="active" {% endif %}>
+                <a href="/tai-nguyen">
+                    <i class="fa fa-folder"></i> Tài nguyên
+                </a>
+            </li>
+            <li {% if request.attributes.get('_route') == 'hom-thu' %} class="active" {% endif %}>
+                <a href="/hom-thu" class="count-info">
+                    <i class="fa fa-envelope"></i><span class="label label-warning" style="left: 5px; line-height: 10px; top:10px; right: auto">16</span> Hòm thư
+                </a>
+            </li>
+            <li>
+                <a class="right-sidebar-toggle">
+                    <i class="fa fa-tasks"></i> Thông báo
+                </a>
+            </li>
+        </ul>
+       
+    </div>
+</nav>

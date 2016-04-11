@@ -1,0 +1,31 @@
+DataBundle\Entity\DepartmentsTeachers: 
+  type:  entity
+  manyToOne: 
+    departments: 
+      targetEntity:  Departments
+      inversedBy:  departmentsteachers
+      joinColumn: 
+        name: departments_id
+        referencedColumnName: id
+    users: 
+      targetEntity:  Users
+      inversedBy:  departmentsteachers
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    departmentsteachersvalidate:
+      targetEntity:  Users
+      inversedBy:  departmentsteachersvalidate
+      joinColumn: 
+        name: validate_users_id
+        referencedColumnName: id
+  table:  departmentsteachers
+  id: 
+   id: 
+      type:  integer
+      generator: 
+        strategy:  AUTO
+  fields: 
+   status: 
+      type:  integer
+      nullable: true
