@@ -235,11 +235,8 @@ class ApiController extends Controller {
                 unlink("/www/iskun.net/web/tmp/" . $i . "_" . $inputs['parts'] . "_" . $inputs['name']);
             }
             $stringfiles = explode(',', $stringfile);
-
             fwrite($myfile, base64_decode($stringfiles[1]));
             fclose($myfile);
-
-
             $file = new \DataBundle\Entity\Files();
             $file->setFilename($inputs['name']);
             $file->setFilepath($config->getCurrentFolder()."/" . $filename);
@@ -284,6 +281,7 @@ class ApiController extends Controller {
     }
 
     public function generatePreviews($id) {
+        // Convert chỉ sử dụng máy Local không sử dụng server
         $em = $this->getDoctrine()->getEntityManager();
         $config=$em->getRepository("DataBundle:Configurations")->find(1);
         $file = $em->getRepository("DataBundle:Files")->find($id);
@@ -297,13 +295,16 @@ class ApiController extends Controller {
             mail("luuanhquyen@gmail.com", "request converted file", $id . "-" . $feed, $headers);
         }
         if (in_array(strtolower($file->getExtension()), array("jpg", "png", "bmp"))) {
-            $feed = "http://".$config->getConverterip()."/converter/?file=" . $file->getFilepath() . "&id=" . $id;
+           
+        }
+        if (in_array(strtolower($file->getExtension()), array("pdf"))){
+            $feed = "http://iskun.net/pdfToPreviews/?file=" . $file->getFilepath() . "&id=" . $id;
             $data = $this->curl($feed);
             $headers = 'From: Hỗ trợ Iskun <hotro@iskun.net>' . "\r\n";
             $headers.= 'Reply-To: luanhquyen@gmail.com' . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-            mail("luuanhquyen@gmail.com", "request converted file", $id . "-" . $feed, $headers);
+            mail("luuanhquyen@gmail.com", "request converted pdf file", $id . "-" . $feed, $headers);
         }
     }
 
@@ -311,24 +312,45 @@ class ApiController extends Controller {
      * @Route("/convertedFile/{id}/{filename}", name="converted-file")  
      */
     public function convertedFileAction($id, $filename) {
-        $headers = 'From: Hỗ trợ Iskun <hotro@iskun.net>' . "\r\n";
-        $headers.= 'Reply-To: luanhquyen@gmail.com' . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        mail("luuanhquyen@gmail.com", "Start converted file", $id . "-" . $filename, $headers);
+        ini_set('max_execution_time', 3000);
         $em = $this->getDoctrine()->getEntityManager();
         $config=$em->getRepository("DataBundle:Configurations")->find(1);
         $file = $em->getRepository("DataBundle:Files")->find($id);
+        foreach ($file->getPreviews() as $preview)
+        {
+            $em->remove($preview);
+            $em->flush();
+            if (file_exists("/www/iskun.net/web/previews/".$preview->getFilepath()))
+            {
+                unlink("/www/iskun.net/web/previews/".$preview->getFilepath());
+            }
+        }
         $myfile = fopen("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename, "w") or die("Unable to open file!");
         fwrite($myfile, file_get_contents("http://".$config->getConverterip()."/converter/" . $filename));
         fclose($myfile);
+        $this->pdfToPreviewsAction("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename, $id);
+        if(file_exists("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename))
+        {
+        unlink("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename);
+        }
+        $result['success']=1;
+        $response = new Response(json_encode($result));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    /**
+     * @Route("/pdfToPreviews/{pdf}/{id}", name="pdfToPreviews")  
+     */
+    public function pdfToPreviewsAction($pdf,$id){
+        $em = $this->getDoctrine()->getEntityManager();
+        $config=$em->getRepository("DataBundle:Configurations")->find(1);
+        $file = $em->getRepository("DataBundle:Files")->find($id);
         if (!file_exists("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId()))
         {
         mkdir("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId(), 0777); 
         }
-        $command = "convert  -density 300 /www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename . " -quality 75 -alpha off -resize 30%  /www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId() . "/" . $filename . "_%04d.jpg";
-        echo $command; 
-        shell_exec($command);
+        $command = "convert  -density 300 $pdf -quality 75 -alpha off -resize 30%  /www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId() . "/" . $file->getFilename() . "_%04d.jpg"; 
+        shell_exec($command); 
         $cdir = scandir("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId());
         $count = 0;
         foreach ($cdir as $key => $value) {
@@ -348,15 +370,10 @@ class ApiController extends Controller {
         $em->persist($file);
         $em->flush();
         exec("rm -fr /www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $file->getId());
-        if(file_exists("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename))
-        {
-        unlink("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename);
-        }
-        $headers = 'From: Hỗ trợ Iskun <hotro@iskun.net>' . "\r\n";
-        $headers.= 'Reply-To: luanhquyen@gmail.com' . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        mail("luuanhquyen@gmail.com", "Finish converted file", $id . "-" . $filename . "-" . $command, $headers);
+        $result['success']=1;
+        $response = new Response(json_encode($result));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -366,6 +383,15 @@ class ApiController extends Controller {
         $em = $this->getDoctrine()->getEntityManager();
         $config=$em->getRepository("DataBundle:Configurations")->find(1);
         $file = $em->getRepository("DataBundle:Files")->find($id);
+        foreach ($file->getPreviews() as $preview)
+        {
+            $em->remove($preview);
+            $em->flush();
+            if (file_exists("/www/iskun.net/web/previews/".$preview->getFilepath()))
+            {
+                unlink("/www/iskun.net/web/previews/".$preview->getFilepath());
+            }
+        }
         for ($i = 0; $i < $pages; $i++) {
             $myfile = fopen("/www/iskun.net/web/previews/".$config->getCurrentFolder()."/" . $filename . "_" . $i . ".jpg", "w") or die("Unable to open file!");
             fwrite($myfile, file_get_contents("http://".$config->getConverterip()."/converter/" . $id . "/" . $filename . "_" . $i . ".jpg"));
@@ -382,11 +408,10 @@ class ApiController extends Controller {
         $file->setThumbnail($this->createFileThumbnailAction($file->getId()));
         $em->persist($file);
         $em->flush();
-        $headers = 'From: Hỗ trợ Iskun <hotro@iskun.net>' . "\r\n";
-        $headers.= 'Reply-To: luanhquyen@gmail.com' . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        mail("luuanhquyen@gmail.com", "Finish converted file", $id . "-" . $filename, $headers);
+        $result['success']=1;
+        $response = new Response(json_encode($result));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     public function createFileThumbnailAction($id) {
@@ -458,6 +483,20 @@ class ApiController extends Controller {
         $response = new Response(json_encode($result));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+    
+    /**
+     * @Route("/generatePreviews", name="generatePreviews")  
+     */
+    public function generatePreviewsAction(){
+        $em = $this->getDoctrine()->getEntityManager();
+        $files = $em->getRepository("DataBundle:Files")->findBy(array("is_previewed"=>null));
+        foreach ($files as $file)
+        {
+            $this->generatePreviews($file->getId());
+        }
+        echo "done";
+        die();
     }
 
 }
