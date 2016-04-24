@@ -17,4 +17,6 @@ DataBundle\Entity\Previews:
         filepath: 
             type:  string
             length: 256
+        page: 
+            type:  integer
         
