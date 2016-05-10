@@ -1,0 +1,48 @@
+{% extends 'TeacherBundle::layout/layout.html.twig' %}
+{% block title %} Trang tài nguyên cá nhân {{user.fullname}}{% endblock %}
+
+{% block navbar %}
+    {{ render(controller('TeacherBundle:Default:navbar',{ 'user': user })) }} 
+{% endblock %}
+{% set mainController = 'mailboxController' %}
+{% block content %}
+    <div class="container-fluid">
+    <div class="col-lg-3 container-fluid">
+        {{ render(controller('TeacherBundle:Default:profile')) }} 
+        {{ include('TeacherBundle::mailbox/side.html.twig', { 'user': user }) }}
+    </div>
+    <div class="col-lg-8 container-fluid" ng-cloak >
+        {{ include('TeacherBundle::mailbox/emails.html.twig', { 'user': user }) }}
+    </div>
+    <div class="col-lg-1 container-fluid" ng-cloak >
+        <div class="ibox">
+                        <div class="ibox-content">
+                            
+                            <div class="user-friends">
+                                <a href=""><img src="/img/a3.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a1.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a2.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a4.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a5.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a6.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a7.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a8.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a2.jpg" class="img-circle" alt="image"></a>
+                                <a href=""><img src="/img/a1.jpg" class="img-circle" alt="image"></a>
+                            </div>
+                        </div>
+                    </div>   
+    </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ render(controller('TeacherBundle:Default:footer')) }} 
+{% endblock %}
+{% block notification %}
+    {{ include('TeacherBundle::notification.html.twig', { 'user': user }) }}
+{% endblock %}
+
+{% block javascript %} 
+    <script src="/js/teacher/profileController.js"></script>
+    <script src="/js/teacher/{{mainController}}.js"></script>
+{% endblock %}

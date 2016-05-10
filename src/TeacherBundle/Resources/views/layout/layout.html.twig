@@ -4,9 +4,9 @@
     <head>
 
         <meta charset="utf-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        
+
 
         <title>{% block title %}{{user.fullname}} - iskun.net{% endblock %}</title>
 
@@ -26,6 +26,8 @@
         <script src="/js/ui-bootstrap-tpls-1.2.5.min.js"></script> 
         <script src="/js/bootbox.min.js"></script>
         <script src="/js/teacher/iskunapp.js"></script>
+        <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
+        <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
     </head>
 
     <body class="top-navigation" {% if mainController is defined %} id="{{mainController}}" ng-controller="{{mainController}}" {% endif%}>
@@ -63,7 +65,8 @@
 
 <script src="/js/inspinia.js"></script>   
 <script src="/js/plugins/iCheck/icheck.min.js"></script>
-<script src="js/plugins/slick/slick.min.js"></script>
+<script src="/js/plugins/slick/slick.min.js"></script>
+<script src="/js/plugins/summernote/summernote.min.js"></script>
 {% block javascript %}{% endblock %}
 
 

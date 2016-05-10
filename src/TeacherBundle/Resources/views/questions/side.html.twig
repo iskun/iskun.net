@@ -1,0 +1,45 @@
+<div class="ibox float-e-margins" ng-show="user.teachingsubjects" ng-cloak>
+    <div class="ibox-content">
+        <div class="file-manager">
+            <h5>Nguồn:</h5> 
+            <div class="row">
+            <div class="col-lg-12" style="padding: 15px;">
+                <div ng-cloak ng-repeat="share in sharings" class="col-lg-4" style="padding: 0px;">
+                    <button ng-click="filterFiles('sharings',share)" ng-class="filter.sharings.id == share.id ? 'btn-primary' : 'btn-default'"  class="btn btn-xs btn-block" style="border-radius:0px" type="button">[[share.name]]</button>
+                </div>
+            </div>
+            </div>
+            <div class="hr-line-dashed"></div>  
+             
+           
+            <h5>Môn học:</h5>
+            <button ng-class="filter.subjects.id ? 'btn-default' : 'btn-primary'" ng-click="filterFiles('subjects',{})" class="btn btn-xs btn-block" type="button">Tất cả</button>
+            <button ng-class="filter.subjects.id ==subject.subjects.id ? 'btn-primary' : 'btn-default'" ng-click="filterFiles('subjects',subject.subjects)" class="btn  btn-xs btn-block" ng-cloak ng-repeat="subject in user.teachingsubjects" type="button"> [[subject.subjects.name]] </button>
+            <div class="hr-line-dashed"></div>
+            <div ng-cloak ng-show="filter.subjects.subjectschapters.length>0">
+                <h5>Các chương:</h5>
+                <button ng-class="filter.subjectschapters.id ? 'btn-default' : 'btn-primary'" ng-cloak class="btn  btn-xs btn-block" ng-click="filterFiles('subjectschapters',{})"> Tất cả </button>
+                <button ng-class="filter.subjectschapters.id == chapter.id ? 'btn-primary' : 'btn-default'" ng-cloak class="btn  btn-xs btn-block" ng-click="filterFiles('subjectschapters',chapter)"  ng-repeat="chapter in filter.subjects.subjectschapters"> [[chapter.name | limitTo: 30 ]] </button>
+                <div class="hr-line-dashed"></div>
+            </div>
+             <h5>Định dạng:</h5>  
+            <span ng-class="filter.filesformats.length == 0 ? 'badge-primary' : ''" class="badge " ng-click="filterFiles('filesformats',{})" style="margin:0px 3px 0px 3px; cursor: pointer;"  > Tất cả </span>
+            <span ng-class="format.class == 'active' ? 'badge-primary' : ''" class="badge" ng-click="filterFiles('filesformats',format)" ng-cloak ng-repeat="format in filesformats" style="margin:0px 3px 0px 3px;cursor: pointer;"> [[format.name]] </span>
+            <div class="hr-line-dashed"></div> 
+            <div ng-cloak ng-show="filter.source == 'private'">
+            <h5 class="tag-title">Thẻ cá nhân</h5> 
+            <ul style="padding: 0" class="tag-list">
+                <li class="active"><a class="active" href="">Family</a></li>
+                <li><a href="">Work</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Children</a></li>
+                <li><a href="">Holidays</a></li>
+                <li><a href="">Music</a></li>
+                <li><a href="">Photography</a></li>
+                <li><a href="">Film</a></li>
+            </ul>
+            <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

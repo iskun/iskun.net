@@ -1,0 +1,29 @@
+DataBundle\Entity\EmailsAddresses: 
+  type:  entity
+  manyToOne: 
+    users: 
+      targetEntity:  Users
+      inversedBy:  emailsaddresses
+      joinColumn: 
+        name: users_id
+        referencedColumnName: id
+    domains: 
+      targetEntity:  Domains
+      inversedBy:  emailsaddresses
+      joinColumn: 
+        name: domains_id
+        referencedColumnName: id
+  oneToMany: 
+    emails: 
+        targetEntity:  Emails
+        mappedBy:  emailsaddresses
+  table:  emailsaddresses
+  id: 
+    id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+    address: 
+      type:  string

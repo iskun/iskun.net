@@ -1,0 +1,19 @@
+<div ng-if="show=='inbox'"> 
+{{ include('TeacherBundle::mailbox/inbox.html.twig') }}
+</div>
+<div ng-if="show=='outbox'"> 
+{{ include('TeacherBundle::mailbox/outbox.html.twig') }}
+</div>
+<div ng-if="show=='compose'"> 
+{{ include('TeacherBundle::mailbox/compose.html.twig') }}
+</div>
+<div ng-if="show=='important'"> 
+{{ include('TeacherBundle::mailbox/important.html.twig') }}
+</div>
+<div ng-if="show=='trash'"> 
+{{ include('TeacherBundle::mailbox/trash.html.twig') }}
+</div>
+<div ng-if="show=='read'"> 
+{{ include('TeacherBundle::mailbox/read.html.twig') }}
+</div>
+

@@ -7,11 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Facebook\Facebook;
 use Unoconv\Unoconv;
+use PhpImap\Mailbox as ImapMailbox;
+use PhpImap\IncomingMail;
+use PhpImap\IncomingMailAttachment;
 
 class DefaultController extends Controller {
 
     public function indexAction($request) {
-
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
         $data['page'] = "home";
         return $this->render('TeacherBundle::index/index.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
@@ -22,24 +27,27 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/tai-nguyen", name="tai-nguyen")
+     * @Route("{slug}/tai-nguyen", name="giao-vien-tai-nguyen")
      */
-    public function resourcesAction(Request $request) {
-        
+    public function resourcesAction(Request $request, $slug) {
+
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
             return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
         }
-        return $this->render('TeacherBundle::resources/resources.html.twig', [
+        return $this->render('TeacherBundle::resources/index.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
                     'user' => $this->getUser(),
         ]);
     }
 
     /**
-     * @Route("/de-thi", name="de-thi")
+     * @Route("{slug}/de-thi", name="giao-vien-de-thi")
      */
     public function testsAction(Request $request) {
-        return $this->render('TeacherBundle::index.html.twig', [
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        return $this->render('TeacherBundle::tests/index.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
                     'user' => $this->getUser(),
         ]);
@@ -52,7 +60,8 @@ class DefaultController extends Controller {
 
         return $this->render('TeacherBundle::layout/navbar.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
-                    'request' => $request
+                    'request' => $request,
+                    'user' => $this->getUser(),
         ]);
     }
 
@@ -68,10 +77,12 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/profile", name="profile")
+     * @Route("{slug}/profile", name="profile")
      */
     public function profileAction(Request $request) {
-
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
         return $this->render('TeacherBundle::layout/profile.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
                     'request' => $request,
@@ -91,20 +102,45 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("{slug}/truong-hoc", name="giao-vien-truong-hoc")
      */
-    public function testAction(Request $request) {
-        $command="convert /www/iskun.net/web/docs/php.pdf /www/iskun.net/web/docs/luu_%03d.jpg";
-        shell_exec($command);
-        die();
-        return $this->render('TeacherBundle::index.html.twig', [
+    public function schoolsAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        return $this->render('TeacherBundle::schools/index.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
                     'user' => $this->getUser(),
         ]);
     }
-    
-    
-    
+
+    /**
+     * @Route("{slug}/cau-hoi", name="giao-vien-cau-hoi")
+     */
+    public function questionsAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        return $this->render('TeacherBundle::questions/index.html.twig', [
+                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+                    'user' => $this->getUser(),
+        ]);
+    }
+
+    /**
+     * @Route("{slug}/hom-thu", name="giao-vien-hom-thu")
+     */
+    public function mailboxAction(Request $request, $slug) {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        return $this->render('TeacherBundle::mailbox/index.html.twig', [
+                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+                    'user' => $this->getUser(),
+        ]);
+    }
+
     
 
 }

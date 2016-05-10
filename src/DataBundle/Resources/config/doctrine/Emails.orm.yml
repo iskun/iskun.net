@@ -1,0 +1,86 @@
+DataBundle\Entity\Emails: 
+  type:  entity
+  manyToOne: 
+    to_emailsaddresses: 
+      targetEntity:  EmailsAddresses
+      inversedBy:  emails
+      joinColumn: 
+        name: emailsaddresses_to
+        referencedColumnName: id
+      nullable: true
+    from_emailsaddresses: 
+      targetEntity:  EmailsAddresses
+      inversedBy:  emails
+      joinColumn: 
+        name: emailsaddresses_from
+        referencedColumnName: id
+      nullable: true
+    reply_to:  
+      targetEntity:  Emails
+      inversedBy:  reply
+      joinColumn: 
+        name: reply_to
+        referencedColumnName: id
+    to_users:  
+      targetEntity:  Users
+      inversedBy:  emails
+      joinColumn: 
+        name: users_to
+        referencedColumnName: id
+    from_users:  
+      targetEntity:  Users
+      inversedBy:  emails
+      joinColumn: 
+        name: users_from
+        referencedColumnName: id
+  oneToMany: 
+    emailsattachments: 
+        targetEntity:  EmailsAttachments
+        mappedBy:  emails
+    reply: 
+      targetEntity:  Emails
+      mappedBy:  reply_to
+  table:  emails
+  id: 
+    id: 
+      type:  integer
+      id:  true
+      generator: 
+        strategy:  AUTO
+  fields: 
+    subject: 
+      type:  string
+      nullable: true
+    content: 
+      type:  text
+      nullable: true
+    file_path:
+      type: string
+      nullable: true
+    message_id:
+      type: string
+      nullable: true
+    cc:
+      type: string
+      nullable: true
+    bcc:
+      type: string
+      nullable: true  
+    sent_time:
+      type: integer
+      nullable: true
+    delivery_time:
+      type: integer
+      nullable: true  
+    read_time:
+      type: integer
+      nullable: true  
+    is_read:
+      type: integer
+      nullable: true  
+    from_name:
+      type: string
+      nullable: true
+    from_address:
+      type: string
+      nullable: true

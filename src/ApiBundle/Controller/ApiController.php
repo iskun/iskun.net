@@ -522,5 +522,23 @@ class ApiController extends Controller {
         echo "done";
         die();
     }
+    
+    /**
+     * @Route("/api/getEmails/{token}", name="api-emails")
+     */
+    public function getEmailsAction($token) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token);
+        $dql = "SELECT e FROM DataBundle:Emails e JOIN e.to_users to WHERE to.id=".$user->getId();
+        $query = $em->createQuery($dql)
+                ->setFirstResult(0)
+                ->setMaxResults(50);
+        $emails = $query->getResult();
+        $serializer = $this->container->get('serializer');
+        $result = $serializer->serialize($emails, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 
 }

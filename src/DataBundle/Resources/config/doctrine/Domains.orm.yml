@@ -1,0 +1,19 @@
+DataBundle\Entity\Domains: 
+    type:  entity
+    id: 
+        id: 
+            type:  integer
+            generator: 
+                strategy:  AUTO
+    oneToMany: 
+        emailsaddresses: 
+            targetEntity:  EmailsAddresses
+            mappedBy:  domains
+    table:  domains 
+    fields: 
+        name: 
+            type:  string
+            length: 256
+        address:
+            type: string
+            length: 256
