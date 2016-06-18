@@ -1,4 +1,4 @@
-var IskunApp = angular.module('IskunApp', ['infinite-scroll','ui.bootstrap']);
+var IskunApp = angular.module('IskunApp', ['infinite-scroll','ui.bootstrap','ngSanitize']);
 IskunApp.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -9,7 +9,7 @@ IskunApp.run(function ($rootScope, $http)
     $rootScope.initUser = function () {
         $rootScope.requireUpdate=false;
         $http.get('/api/user').success(function (data) {
-            $rootScope.user = data;
+            $rootScope.user = data;  
             $rootScope.$broadcast('InitUser', $rootScope.user);
             $rootScope.processing = false;
             if (($rootScope.user.teachingsubjects.length==0)||($rootScope.user.schoolsteachers.length==0))

@@ -10,6 +10,22 @@ use Facebook\Facebook;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class DefaultController extends Controller
 {
+    
+    /**
+     * @Route("/{slug}", name="pre_router") 
+     */
+    public function preRouteAction(Request $request,$slug)
+    { 
+        $em = $this->getDoctrine()->getEntityManager();
+        $slugs=$em->getRepository("DataBundle:Slugs")->findOneBy(array("slug"=>$slug));
+        if($slugs->getEntity()=="schools")
+        {
+            return $this->forward('TeacherBundle:Default:school',array('request'=>$request));
+        }
+    }
+    
+    
+    
     /**
      * @Route("/", name="home") 
      */
@@ -31,6 +47,8 @@ class DefaultController extends Controller
         }
         return $this->forward('HomeBundle:Default:guest',array('request'=>$request));
     }
+    
+    
     
     public function guestAction(){
         return $this->render('HomeBundle::guest.html.twig', [

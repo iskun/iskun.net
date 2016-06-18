@@ -115,7 +115,7 @@ class Users implements UserInterface, \Serializable
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Groups({"full"})
+     * 
      */
     private $schoolscreater;
 

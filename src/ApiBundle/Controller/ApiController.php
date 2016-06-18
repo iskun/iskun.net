@@ -238,7 +238,7 @@ class ApiController extends Controller {
             fclose($myfile);
             $file = new \DataBundle\Entity\Files();
             $file->setFilename($inputs['name']);
-            $file->setFilepath($config->getCurrentFolder() . "/" . $filename);
+            $file->setFilepath("/files/" . $config->getCurrentFolder() . "/" . $filename);
             $file->setFormat($inputs['type']);
             $file->setThumbnail("");
             $file->setExtension($extension);
@@ -249,8 +249,8 @@ class ApiController extends Controller {
             $file->setLikesnumbers(0);
             $em->persist($file);
             $em->flush();
-            $this->generatePreviews($file->getId());
-            $file->setThumbnail($this->createFileThumbnailAction($file->getId()));
+            $this->generatePreviewsAction($file->getId());
+            //$file->setThumbnail($this->createFileThumbnailAction($file->getId()));
             $em->persist($file);
             $em->flush();
             $serializer = $this->container->get('serializer');
@@ -274,29 +274,109 @@ class ApiController extends Controller {
         curl_setopt($c, CURLOPT_NOBODY, true);          // Don't retrieve the body
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);  // Return from curl_exec rather than echoing
         curl_setopt($c, CURLOPT_FRESH_CONNECT, true);   // Always ensure the connection is fresh
-// Timeout super fast once connected, so it goes into async.
         curl_setopt($c, CURLOPT_TIMEOUT, 1);
         return curl_exec($c);
     }
 
-    public function generatePreviews($id) {
+    /**
+     * @Route("/api/generatePreview/{id}", name="generate-preview")  
+     */
+    public function generatePreviewsAction($id) {
         // Convert chỉ sử dụng máy Local không sử dụng server
         $em = $this->getDoctrine()->getEntityManager();
         $config = $em->getRepository("DataBundle:Configurations")->find(1);
         $file = $em->getRepository("DataBundle:Files")->find($id);
+
         if (in_array($file->getExtension(), array("doc", "docx", "ppt", "pptx", "pdf"))) {
-            $feed = "http://" . $config->getConverterip() . "/converter/?file=" . $file->getFilepath() . "&id=" . $id;
+            $feed = "http://" . $config->getConverterip() . "/converter/?file=" . $file->getFilepath() . "&callback=returnThumbnailsFile&id=" . $id . "";
             $data = $this->curl($feed);
             mail("luuanhquyen@gmail.com", "request converted  office file " . $id, $feed);
         }
         if (in_array(strtolower($file->getExtension()), array("jpg", "png", "bmp"))) {
-            
+            $filename = $file->getFilename();
+            $filename = str_replace("." . $file->getExtension(), "", $filename);
+            $filename = md5($filename . time()) . ".jpg";
+            // resize preview
+            $imagick = new \Imagick("/www/iskun.net/web" . $file->getFilepath());
+            $imagick->setImageFormat('jpg');
+            $imagick->resizeImage(800, 800, \imagick::FILTER_LANCZOS, 0.9, true);
+            $imagick->writeImage('/www/iskun.net/web/previews/' . $config->getCurrentFolder() . '/' . $filename);
+            $imagick->destroy();
+            $preview = new \DataBundle\Entity\Previews();
+            $preview->setFiles($file);
+            $preview->setFilepath("/previews/" . $config->getCurrentFolder() . '/' . $filename);
+            $preview->setPage(1);
+            $em->persist($preview);
+            $em->flush();
+
+            // tao file thumbnail
+            $imagick2 = new \Imagick("/www/iskun.net/web" . $file->getFilepath());
+            $imagick2->setImageFormat('jpg');
+            $imagick2->setbackgroundcolor('rgb(64, 64, 64)');
+            $imagick2->cropThumbnailImage(300, 300);
+            $imagick2->setImageCompression(\Imagick::COMPRESSION_JPEG);
+            $imagick2->setImageCompressionQuality(75);
+            $imagick2->stripImage();
+            $imagick2->writeImage('/www/iskun.net/web/thumbnails/' . $config->getCurrentFolder() . '/' . $filename);
+            $imagick2->destroy();
+            $file->setThumbnail("/thumbnails/" . $config->getCurrentFolder() . "/" . $filename);
+            $em->persist($file);
+            $em->flush();
         }
-        if (in_array(strtolower($file->getExtension()), array("pdf"))) {
-            // $feed = "http://iskun.net/pdfToPreviews/?file=" . $file->getFilepath() . "&id=" . $id;
-            // $data = $this->curl($feed);
-            //mail("luuanhquyen@gmail.com", "request converted pdf file ".$id, $feed); 
+    }
+
+    /**
+     * @Route("/returnThumbnailsFile/{id}/{filename}/{pages}", name="generate-files-thumbnails")  
+     */
+    public function returnThumbnailsFileAction($id, $filename, $pages) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $config = $em->getRepository("DataBundle:Configurations")->find(1);
+        $ip = $config->getConverterIp();
+        $file = $em->getRepository("DataBundle:Files")->find($id);
+        foreach ($file->getPreviews() as $pre) {
+            // $em->remove($pre);
+            //$em->flush(); 
         }
+        for ($i = 0; $i < $pages; $i++) {
+            $p = ($i + 1);
+            $preview = $em->getRepository("DataBundle:Previews")->findOneBy(array("files" => $file->getId(), "page" => $p));
+            if ($preview) {
+                continue;
+            }
+            $url = "http://" . $config->getConverterip() . "/converter/returnThumbnailsFile/" . $filename . "_" . $i . ".jpg";
+            $content = @file_get_contents($url);
+            if (!$content) {
+                echo "exit";
+                die();
+            }
+            $myfile = fopen("/www/iskun.net/web/previews/" . $config->getCurrentFolder() . "/" . $filename . "_" . $i . ".jpg", "w") or die("Unable to open file!");
+            fwrite($myfile, $content);
+            fclose($myfile);
+            $preview = new \DataBundle\Entity\Previews();
+            $preview->setFiles($file);
+            $preview->setFilepath("/previews/" . $config->getCurrentFolder() . "/" . $filename . "_" . $i . ".jpg");
+            $preview->setPage($p);
+            $em->persist($preview);
+            $em->flush();
+
+            if ($i == 0) {
+                $imagick = new \Imagick("/www/iskun.net/web/previews/" . $config->getCurrentFolder() . "/" . $filename . "_" . $i . ".jpg");
+                $imagick->setImageFormat('jpg');
+                $imagick->setbackgroundcolor('rgb(64, 64, 64)');
+                $imagick->cropThumbnailImage(300, 300);
+                $imagick->setImageCompression(\Imagick::COMPRESSION_JPEG);
+                $imagick->setImageCompressionQuality(75);
+                $imagick->stripImage();
+                $name = $filename . ".jpg";
+                $imagick->writeImage('/www/iskun.net/web/thumbnails/' . $config->getCurrentFolder() . '/' . $name);
+                $imagick->destroy();
+                $file->setThumbnail("/thumbnails/" . $config->getCurrentFolder() . "/" . $name);
+                $em->persist($file);
+                $em->flush();
+            }
+        }
+        echo "done";
+        die();
     }
 
     /**
@@ -371,33 +451,30 @@ class ApiController extends Controller {
         $em = $this->getDoctrine()->getEntityManager();
         $config = $em->getRepository("DataBundle:Configurations")->find(1);
         $file = $em->getRepository("DataBundle:Files")->find($id);
-        $previews = $em->getRepository("DataBundle:Previews")->findBy(array("files"=>$id,"page"=>($page+1)));
-        foreach ($previews as $pre)
-        {
+        $previews = $em->getRepository("DataBundle:Previews")->findBy(array("files" => $id, "page" => ($page + 1)));
+        foreach ($previews as $pre) {
             $em->remove($pre);
-            $em->flush(); 
-            if (file_exists("/www/iskun.net/web/previews/".$pre->getFilepath()))
-            {
-                unlink("/www/iskun.net/web/previews/".$pre->getFilepath());
-            } 
+            $em->flush();
+            if (file_exists("/www/iskun.net/web/previews/" . $pre->getFilepath())) {
+                unlink("/www/iskun.net/web/previews/" . $pre->getFilepath());
+            }
         }
         $myfile = fopen("/www/iskun.net/web/previews/" . $config->getCurrentFolder() . "/" . $filename . "_" . $page . ".jpg", "w") or die("Unable to open file!");
         fwrite($myfile, file_get_contents("http://" . $config->getConverterip() . "/converter/" . $id . "/" . $filename . "_" . $page . ".jpg"));
         fclose($myfile);
-        
+
         $preview = new \DataBundle\Entity\Previews();
         $preview->setFilepath($config->getCurrentFolder() . "/" . $filename . "_" . $page . ".jpg");
         $preview->setFiles($file);
-        $preview->setPage($page+1);
+        $preview->setPage($page + 1);
         $em->persist($preview);
         $em->flush();
-        $file->setIsPreviewed(1); 
-        if ($page == 0)  
-            {
-            $file->setPages($totalpages); 
+        $file->setIsPreviewed(1);
+        if ($page == 0) {
+            $file->setPages($totalpages);
             $file->setThumbnail($this->createFileThumbnailAction($file->getId()));
-            $em->persist($file); 
-            $em->flush(); 
+            $em->persist($file);
+            $em->flush();
         }
         $result['success'] = 1;
         $response = new Response(json_encode($result));
@@ -460,9 +537,9 @@ class ApiController extends Controller {
         } else {
 
 
-            $preview = $em->getRepository("DataBundle:Previews")->findOneBy(array("files" => $file->getId(),"page"=>1));
+            $preview = $em->getRepository("DataBundle:Previews")->findOneBy(array("files" => $file->getId(), "page" => 1));
             if ($preview) {
-                $imagick = new \Imagick("/www/iskun.net/web/previews/" . $preview->getFilepath()); 
+                $imagick = new \Imagick("/www/iskun.net/web/previews/" . $preview->getFilepath());
                 $imagick->setImageFormat('jpg');
                 $imagick->setbackgroundcolor('rgb(64, 64, 64)');
                 $imagick->cropThumbnailImage(300, 300);
@@ -510,26 +587,15 @@ class ApiController extends Controller {
         return $response;
     }
 
-    /**
-     * @Route("/generatePreviews", name="generatePreviews")  
-     */
-    public function generatePreviewsAction() {
-        $em = $this->getDoctrine()->getEntityManager();
-        $files = $em->getRepository("DataBundle:Files")->findBy(array("is_previewed" => null));
-        foreach ($files as $file) {
-            $this->generatePreviews($file->getId());
-        }
-        echo "done";
-        die();
-    }
-    
+
+
     /**
      * @Route("/api/getEmails/{token}", name="api-emails")
      */
     public function getEmailsAction($token) {
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository("DataBundle:Users")->findOneByToken($token);
-        $dql = "SELECT e FROM DataBundle:Emails e JOIN e.to_users to WHERE to.id=".$user->getId();
+        $dql = "SELECT e FROM DataBundle:Emails e JOIN e.to_users to WHERE to.id=" . $user->getId() . " ORDER BY e.id DESC";
         $query = $em->createQuery($dql)
                 ->setFirstResult(0)
                 ->setMaxResults(50);
@@ -539,6 +605,192 @@ class ApiController extends Controller {
         $response = new Response($result);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @Route("/api/sendReply/{token}", name="api-emails-reply")
+     */
+    public function sendReplyAction($token, Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $content = $request->getContent();
+        $reply = json_decode($content, true);
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token);
+        $email = new \DataBundle\Entity\Emails();
+        $email->setFromEmailsaddresses($em->getRepository("DataBundle:EmailsAddresses")->find($reply['to_emailsaddresses']['id']));
+        $email->setContent($reply['reply']['content']);
+        $email->setFromUsers($user);
+        $email->setFromAddress($reply['to_address']);
+        $email->setSentTime(time());
+        $email->setReplyTo($em->getRepository("DataBundle:Emails")->find($reply['id']));
+        // nếu cùng hệ thống không sử dụng postfix
+        $email->setToAddress($reply['from_address']);
+        $em->persist($email);
+        $em->flush();
+
+        $headers = "From: " . $reply['to_address'] . "\r\n";
+        $headers .= "Delivered-To: " . $reply['from_address'] . "\r\n";
+        $headers .= "In-Reply-To: " . $reply['message_id'] . "\r\n";
+        $headers .= "References: " . $reply['message_id'] . "\r\n";
+        $headers .= "Return-Path: " . $reply['to_address'] . "\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "id: " . $email->getId() . "\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $headers .= "Bcc: returnmessageid@iskun.net \r\n";
+        mail($reply['from_address'], "[Trả lời] - " . $reply['subject'], $reply['reply']['content'], $headers);
+        $serializer = $this->container->get('serializer');
+        $result = $serializer->serialize($email, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/getSchoolsTypes", name="api-get-schools-types")
+     */
+    public function getSchoolsTypesAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $formats = $em->getRepository("DataBundle:SchoolsTypes")->findBy(array("parent" => null));
+        $serializer = $this->container->get('serializer');
+        $formats = $serializer->serialize($formats, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($formats);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/getMySchools/{token}", name="api-get-my-schools")
+     */
+    public function getMySchoolsAction($token) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token);
+        $schools = $em->getRepository("DataBundle:Schools")->findBy(array("schoolscreater" => $user->getId()));
+        $serializer = $this->container->get('serializer');
+        $result = $serializer->serialize($schools, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/postSchool/{token}", name="api-post-new-school")
+     */
+    public function postSchoolTypesAction($token, Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $content = $request->getContent();
+        $inputs = json_decode($content, true);
+        if (!isset($inputs['name']))
+        {
+            $errors['name']="Vui lòng nhập tên nhà trường";
+        }
+        else
+        {
+            if (strlen($inputs['name'])<=0)
+            {
+                $errors['name']="Vui lòng nhập tên nhà trường";
+            }
+        }
+        if (!isset($inputs['schoolstypes']))
+        {
+            $errors['schoolstypes']="Chọn loại hình nhà trường";
+        }
+        if (!isset($errors))
+        {
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token);
+        $school = new \DataBundle\Entity\Schools();
+        $school->setName($inputs['name']);
+        $school->setCreateTime(time());
+        $school->setSchoolscreater($user);
+        $school->setSchoolstypes($em->getRepository("DataBundle:SchoolsTypes")->find($inputs['schoolstypes']['id']));
+        $em->persist($school);
+        $em->flush();
+        $slug = $this->newSlug($inputs['name'], "schools");
+        $school->setSlugs($slug);
+        $em->persist($school);
+        $em->flush();
+        $serializer = $this->container->get('serializer');
+        $result = $serializer->serialize($school, 'json', SerializationContext::create()->setGroups(array('basic')));
+        }
+        else{
+            $result=  json_encode(array("errors"=>$errors));
+        }
+        
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+    /**
+     * @Route("/api/getMyCreatedSchools/{token}", name="api-post-school")
+     */
+    public function getMyCreatedSchoolsAction($token, Request $request) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $content = $request->getContent();
+        $inputs = json_decode($content, true);
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token); 
+        $schools = $em->getRepository("DataBundle:Schools")->findBy(array("schoolscreater"=>$user->getId()));
+        $serializer = $this->container->get('serializer');
+        $formats = $serializer->serialize($schools, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($formats);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+    /**
+     * @Route("/api/getSchool/{token}/{id}", name="api-get-school")
+     */
+    public function getSchoolAction($token, Request $request,$id) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $content = $request->getContent();
+        $inputs = json_decode($content, true);
+        $user = $em->getRepository("DataBundle:Users")->findOneByToken($token); 
+        $schools = $em->getRepository("DataBundle:Schools")->find($id);
+        $serializer = $this->container->get('serializer');
+        $formats = $serializer->serialize($schools, 'json', SerializationContext::create()->setGroups(array('basic')));
+        $response = new Response($formats);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    public function newSlug($slug, $entity) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $slug = $this->toSlug($slug);
+        $exist = $em->getRepository("DataBundle:Slugs")->findOneBy(array("slug" => $slug));
+        if ($exist) {
+            for ($i = 1; $i <= 1000; $i++) {
+                $newSlug = $slug . "-" . $i;
+                $exist = $em->getRepository("DataBundle:Slugs")->findOneBy(array("slug" => $newSlug));
+                if (!$exist) {
+                    $slug = $newSlug;
+                    break;
+                }
+            }
+        }
+        $slugs = new Slugs();
+        $slugs->setSlug(strtolower($slug));
+        $slugs->setEntity("schools");
+        $em->persist($slugs);
+        $em->flush();
+        return $slugs;
+    }
+
+    public function toSlug($str) {
+        $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+        $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+        $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+        $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+        $str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+        $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+        $str = preg_replace("/(đ)/", 'd', $str);
+        $str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'A', $str);
+        $str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'E', $str);
+        $str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'I', $str);
+        $str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'O', $str);
+        $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
+        $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
+        $str = preg_replace("/(Đ)/", 'D', $str);
+        $str = preg_replace("/( )/", '', $str);
+
+        return $str; // Trả về chuỗi đã chuyển
     }
 
 }

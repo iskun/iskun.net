@@ -4,15 +4,18 @@
 {% block navbar %}
     {{ render(controller('TeacherBundle:Default:navbar',{ 'user': user })) }} 
 {% endblock %}
-{% set mainController = 'schoolsController' %}
+{% set mainController = 'schoolManagerController' %}
 {% block content %}
     <div class="container-fluid">
     <div class="col-lg-3 container-fluid">
         {{ render(controller('TeacherBundle:Default:profile')) }} 
-        {{ include('TeacherBundle::schools/side.html.twig', { 'user': user }) }}
+        {{ include('TeacherBundle::schoolManager/side.html.twig', { 'user': user }) }}
     </div>
-    <div class="col-lg-9 container-fluid" ng-cloak >
-        {{ include('TeacherBundle::schools/schools.html.twig', { 'user': user,'schoolstypes': schoolstypes }) }}
+    <div class="col-lg-7 container-fluid" ng-cloak >
+        {{ include('TeacherBundle::schoolManager/schools.html.twig', { 'user': user }) }}
+    </div>
+    <div class="col-lg-2 container-fluid" ng-cloak >
+       {{ include('TeacherBundle::schoolManager/ads.html.twig', { 'user': user }) }}
     </div>
     </div>
 {% endblock %}
@@ -24,6 +27,9 @@
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript">
+    var school_id={{school.id}};
+    </script>
     <script src="/js/teacher/profileController.js"></script>
     <script src="/js/teacher/{{mainController}}.js"></script>
 {% endblock %}

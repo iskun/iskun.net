@@ -12,7 +12,7 @@
             </div>
         </form>
         <h2>
-            Inbox (16)
+            Hộp thư đến
         </h2>
         <div class="mail-tools tooltip-demo m-t-md">
             <div class="btn-group pull-right">
@@ -49,8 +49,8 @@
                         <div style="margin-left: 45px;">
                         <div ng-if="email.emailsattachments.length>0">
                             <ul class="list-unstyled file-list">
-                                <li ng-repeat="attachment in email.emailsattachments" style="width: auto; display: inline-block; margin-right: 10px"><a href="/emails_attachments/[[attachment.file_path]]"><i class="fa fa-file"></i> [[attachment.file_name]]</a></li>
-                            </ul>
+                                <li ng-repeat="attachment in email.emailsattachments" style="width: auto; display: inline-block; margin-right: 10px"><a href="/emails_attachments/[[attachment.files.filepath]]"><i class="fa fa-file"></i> [[attachment.files.filename]]</a></li>
+                            </ul> 
                         </div>
                         </div>
                         

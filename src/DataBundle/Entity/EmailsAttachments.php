@@ -149,4 +149,109 @@ class EmailsAttachments
     {
         return $this->file_name;
     }
+    /**
+     * @var string
+     */
+    private $thumbnail;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $previews;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->previews = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set thumbnail
+     *
+     * @param string $thumbnail
+     *
+     * @return EmailsAttachments
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get thumbnail
+     *
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Add preview
+     *
+     * @param \DataBundle\Entity\Previews $preview
+     *
+     * @return EmailsAttachments
+     */
+    public function addPreview(\DataBundle\Entity\Previews $preview)
+    {
+        $this->previews[] = $preview;
+
+        return $this;
+    }
+
+    /**
+     * Remove preview
+     *
+     * @param \DataBundle\Entity\Previews $preview
+     */
+    public function removePreview(\DataBundle\Entity\Previews $preview)
+    {
+        $this->previews->removeElement($preview);
+    }
+
+    /**
+     * Get previews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPreviews()
+    {
+        return $this->previews;
+    }
+    /**
+     * @var \DataBundle\Entity\Files
+     * @Groups({"basic"})
+     */
+    private $files;
+
+
+    /**
+     * Set files
+     *
+     * @param \DataBundle\Entity\Files $files
+     *
+     * @return EmailsAttachments
+     */
+    public function setFiles(\DataBundle\Entity\Files $files = null)
+    {
+        $this->files = $files;
+
+        return $this;
+    }
+
+    /**
+     * Get files
+     *
+     * @return \DataBundle\Entity\Files
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
 }

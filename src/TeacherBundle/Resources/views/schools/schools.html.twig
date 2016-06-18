@@ -1,0 +1,14 @@
+<div ng-if="show=='add'"> 
+{{ include('TeacherBundle::schools/add.html.twig') }}
+</div>
+<div ng-if="show=='show'"> 
+{{ include('TeacherBundle::schools/list.html.twig') }}
+</div>
+
+<div ng-show="show!='add'" id="small-resource" style="right: 100px; bottom: 40px;">
+    <button class="btn btn-primary" ng-click="add()" class="open-resource-chat" style="width: 150px; border-radius: 0px;">
+        <i class="fa fa-plus"></i> Thêm trường học
+    </button>
+</div>
+
+

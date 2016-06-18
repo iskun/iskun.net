@@ -21,7 +21,7 @@ class DefaultController extends Controller {
      */
         public function getUserAction() {
         $em = $this->getDoctrine()->getEntityManager();
-        $user = $this->getUser();
+        $user = $this->getUser();  
         $serializer = $this->container->get('serializer');
         $user = $serializer->serialize($user, 'json', SerializationContext::create()->setGroups(array('full'))->enableMaxDepthChecks());
         $user = json_decode($user, true);

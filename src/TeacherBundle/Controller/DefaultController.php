@@ -39,6 +39,20 @@ class DefaultController extends Controller {
                     'user' => $this->getUser(),
         ]);
     }
+    
+    /**
+     * @Route("{slug}/lop-hoc", name="giao-vien-lop-hoc")
+     */
+    public function classesAction(Request $request, $slug) {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        return $this->render('TeacherBundle::classes/index.html.twig', [ 
+                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+                    'user' => $this->getUser(),
+        ]);
+    }
 
     /**
      * @Route("{slug}/de-thi", name="giao-vien-de-thi")
@@ -108,9 +122,12 @@ class DefaultController extends Controller {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
             return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
         }
+        $em = $this->getDoctrine()->getEntityManager();
+        $schoolstypes = $em->getRepository("DataBundle:SchoolsTypes")->findBy(array("parent"=>null));
         return $this->render('TeacherBundle::schools/index.html.twig', [
                     'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
                     'user' => $this->getUser(),
+                    'schoolstypes' => $schoolstypes
         ]);
     }
 
@@ -141,6 +158,33 @@ class DefaultController extends Controller {
         ]);
     }
 
+    public function schoolAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        $em = $this->getDoctrine()->getEntityManager();
+        return $this->render('TeacherBundle::school/index.html.twig', [
+                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+                    'user' => $this->getUser(),
+        ]);
+    }
     
+    
+    /**
+     * @Route("quan-ly/{slug}", name="quan-ly-truong-hoc")
+     */
+    public function schoolManagerAction(Request $request,$slug) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('quick_login', array("redirect" => $_SERVER["REQUEST_URI"]), 301);
+        }
+        $em = $this->getDoctrine()->getEntityManager();
+        $slugs=$em->getRepository("DataBundle:Slugs")->findOneBy(array("slug"=>$slug));
+        $school=$em->getRepository("DataBundle:Schools")->findOneBy(array("slugs"=>$slugs->getId()));
+        return $this->render('TeacherBundle::schoolManager/index.html.twig', [
+                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir') . '/..'),
+                    'user' => $this->getUser(),
+                    'school'=>$school,
+        ]);
+    }
 
 }

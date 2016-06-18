@@ -1,7 +1,14 @@
 <?php
 
 namespace DataBundle\Entity;
-
+use JMS\Serializer\Annotation\AccessType;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 /**
  * Schools
  */
@@ -9,16 +16,19 @@ class Schools
 {
     /**
      * @var integer
+     * @Groups({"basic"})
      */
     private $id;
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $name;
 
     /**
      * @var integer
+     * @Groups({"basic"})
      */
     private $create_time;
 
@@ -34,26 +44,31 @@ class Schools
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $address = '';
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $mobile = '';
 
     /**
      * @var float
+     * @Groups({"basic"})
      */
     private $latitude;
 
     /**
      * @var float
+     * @Groups({"basic"})
      */
     private $longitude;
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $logo;
 
@@ -89,6 +104,7 @@ class Schools
 
     /**
      * @var \DataBundle\Entity\SchoolsTypes
+     * @Groups({"basic"})
      */
     private $schoolstypes;
 
@@ -104,6 +120,7 @@ class Schools
 
     /**
      * @var \DataBundle\Entity\Slugs
+     * @Groups({"basic"})
      */
     private $slugs;
 

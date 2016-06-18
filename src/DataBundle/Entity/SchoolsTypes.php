@@ -1,7 +1,14 @@
 <?php
 
 namespace DataBundle\Entity;
-
+use JMS\Serializer\Annotation\AccessType;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 /**
  * SchoolsTypes
  */
@@ -9,16 +16,19 @@ class SchoolsTypes
 {
     /**
      * @var integer
+     * @Groups({"basic"})
      */
     private $id;
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $name;
 
     /**
      * @var string
+     * @Groups({"basic"})
      */
     private $description;
 
@@ -39,6 +49,7 @@ class SchoolsTypes
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Groups({"basic"})
      */
     private $children;
 
@@ -49,7 +60,8 @@ class SchoolsTypes
 
     /**
      * @var \DataBundle\Entity\Slugs
-     */
+     * @Groups({"basic"})
+     */ 
     private $slugs;
 
     /**

@@ -1,0 +1,37 @@
+<div class="ibox float-e-margins animated fadeInRight">
+    <div class="ibox-title">
+        <h5>Thêm trường học: <small>(Đại học, cao đẳng, phổ thông ...)</small></h5>
+        <div class="ibox-tools">
+            
+            <a onclick="return false;" ng-click="list()" class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-6 b-r">
+                <form role="form">
+                    <div class="form-group"><label>Loại hình nhà trường:</label> 
+                        <select ng-model="school.schoolstypes.id" name="account" class="form-control m-b">
+                            <option ng-repeat="schooltype in schoolstypes" value="[[schooltype.id]]" ng-if="schooltype.children.length==0"> [[schooltype.name]] </option>
+                            <optgroup ng-repeat="schooltype in schoolstypes" ng-if="schooltype.children.length>0" label="[[schooltype.name]]">
+                                <option ng-repeat="st in schooltype.children" value="[[st.id]]">[[st.name]]</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Tên nhà trường</label> <input ng-model="school.name" type="text" class="form-control" placeholder="Tên nhà trường"></div>
+                    <div>
+                        <button type="button" ng-click="addSchool()" class="btn btn-sm btn-primary pull-right m-t-n-xs"><strong>Thêm nhà trường</strong></button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6"><h4>Not a member?</h4>
+                <p>You can create an account:</p>
+                <p class="text-center">
+                    <a href=""><i class="fa fa-sign-in big-icon"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

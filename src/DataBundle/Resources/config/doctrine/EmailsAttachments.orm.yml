@@ -7,10 +7,12 @@ DataBundle\Entity\EmailsAttachments:
       joinColumn: 
         name: emails_id
         referencedColumnName: id
-  oneToMany: 
-    previews: 
-      targetEntity:  Previews
-      mappedBy:  files
+    files: 
+      targetEntity:  Files
+      inversedBy:  emailsattachments
+      joinColumn: 
+        name: files_id
+        referencedColumnName: id
       cascade:
             ['remove']
   table:  emailsattachments
@@ -20,15 +22,4 @@ DataBundle\Entity\EmailsAttachments:
       id:  true
       generator: 
         strategy:  AUTO
-  fields: 
-    file_path: 
-      type:  string
-    file_format:
-      type: string
-      nullable: true
-    file_name:
-      type: string
-      nullable: true
-    thumbnail: 
-      type:  string
-      nullable:  true
+  fields:  

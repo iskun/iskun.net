@@ -69,7 +69,7 @@
                                         <div class="carousel-inner">
 
                                             <div ng-if="viewingResource.viewingFile.previews.length>0" ng-repeat="f in viewingResource.viewingFile.previews" ng-class="$index==0 ? 'active' : ''" class="item">
-                                                <img  alt="image" class="img-responsive" style="width: 100%; cursor: pointer" ng-src="/previews/[[f.filepath]]">
+                                                <img  alt="image" class="img-responsive" style="width: 100%; cursor: pointer" ng-src="[[f.filepath]]">
                                                 <div class="carousel-caption" style="padding-bottom: 0px">
                                                     <p class="">Trang [[$index+1]] / [[viewingResource.viewingFile.previews.length]]</p> 
                                                 </div>
@@ -103,7 +103,7 @@
                                     <div class="feed-activity-list" id="fileComments" >
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -113,7 +113,7 @@
 
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -131,7 +131,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -140,7 +140,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -149,7 +149,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -158,7 +158,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -167,7 +167,7 @@
                                         </div>
                                         <div class="feed-element">
                                             <a class="pull-left" href="#">
-                                                <img src="img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
+                                                <img src="/img/profile.jpg" style="38px; height: 38px;" class="img-responsive" alt="image">
                                             </a>
                                             <div class="media-body ">
                                                 <small class="pull-right bg-info">13:30 7/4</small>
@@ -227,7 +227,7 @@
                                 <span class="corner"></span>
 
                                 <div class="image" style="height: auto">
-                                    <img ng-click="viewFile(file.files)" ng-src="/thumbnails/[[file.files.thumbnail]]" class="img-responsive" alt="image">
+                                    <img ng-click="viewFile(file.files)" ng-src="[[file.files.thumbnail]]" class="img-responsive" alt="image">
                                 </div>
                                 <div style="height: 60px;" ng-click="viewFile(file.files)" class="file-name">
                                     [[file.files.filename| limitTo: 35]]<span ng-if="file.files.filename.length>35">...</span>
@@ -242,7 +242,7 @@
                     <div class="feed-activity-list" style="padding: 5px;">
                         <div class="feed-element">
                             <a class="pull-left" href="#">
-                                <img src="img/profile.jpg" class="img-circle" alt="image">
+                                <img src="/img/profile.jpg" class="img-circle" alt="image">
                             </a>
                             <div class="media-body ">
                                 <small class="pull-right">5m ago</small>
@@ -425,7 +425,7 @@
                     </div>
                     <div class="carousel-inner">
                         <div ng-repeat="f in resource.postsfiles" ng-class="$index==0 ? 'active' : ''" class="item">
-                            <img ng-if="f.files.thumbnail.length>0"  ng-click="viewResource(resource,rootIndex)" alt="image" class="img-responsive" style="width: 100%; cursor: pointer" ng-src="/thumbnails/[[f.files.thumbnail]]">
+                            <img ng-if="f.files.thumbnail.length>0"  ng-click="viewResource(resource,rootIndex)" alt="image" class="img-responsive" style="width: 100%; cursor: pointer" ng-src="[[f.files.thumbnail]]">
                             <img ng-if="f.files.thumbnail.length==0"  ng-click="viewResource(resource,rootIndex)" alt="image" class="img-responsive" style="width: 100%; cursor: pointer" src="http://www.bhphotovideo.com/images/images2500x2500/fujifilm_16470245_x_t10_mirrorless_digital_camera_1149205.jpg">
                             <div class="carousel-caption" style="background-color: rgba(0,0,0,0.3);padding-bottom: 0px; bottom: 0px; width: 100%; left: 0%; right:0%">
                                 <p class="">[[f.files.filename | limitTo:30 ]] <span ng-if="f.files.filename.length>30">...</span></p>  

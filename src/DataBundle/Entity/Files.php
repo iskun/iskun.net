@@ -698,4 +698,33 @@ class Files
     {
         return $this->pages;
     }
+    /**
+     * @var integer
+     */
+    private $is_previewed;
+
+
+    /**
+     * Set isPreviewed
+     *
+     * @param integer $isPreviewed
+     *
+     * @return Files
+     */
+    public function setIsPreviewed($isPreviewed)
+    {
+        $this->is_previewed = $isPreviewed;
+
+        return $this;
+    }
+
+    /**
+     * Get isPreviewed
+     *
+     * @return integer
+     */
+    public function getIsPreviewed()
+    {
+        return $this->is_previewed;
+    }
 }

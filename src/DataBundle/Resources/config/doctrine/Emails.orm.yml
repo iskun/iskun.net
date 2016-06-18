@@ -37,7 +37,9 @@ DataBundle\Entity\Emails:
     emailsattachments: 
         targetEntity:  EmailsAttachments
         mappedBy:  emails
-    reply: 
+        cascade:
+            ['remove']
+    replies: 
       targetEntity:  Emails
       mappedBy:  reply_to
   table:  emails
@@ -82,5 +84,8 @@ DataBundle\Entity\Emails:
       type: string
       nullable: true
     from_address:
+      type: string
+      nullable: true
+    to_address:
       type: string
       nullable: true

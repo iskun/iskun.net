@@ -119,4 +119,33 @@ class Previews
     {
         return $this->filepath;
     }
+    /**
+     * @var integer
+     */
+    private $page;
+
+
+    /**
+     * Set page
+     *
+     * @param integer $page
+     *
+     * @return Previews
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return integer
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
 }
